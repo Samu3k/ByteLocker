@@ -1,0 +1,26 @@
+# Explicit opt-in: this exposes the API to the Internet for development tests.
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:2026.10.0@sha256:9b49eed8f62806d5d45ddf59ecefb5710429598ea6d3fcccd2af938f621b2b07
+    command: [tunnel, --no-autoupdate, --url, "http://127.0.0.1:8080"]
+    network_mode: service:bytelocker
+    depends_on:
+      bytelocker:
+        condition: service_healthy
+    restart: "no"
+    user: "65532:65532"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 128m
+    cpus: 0.5
+    pids_limit: 64
+    environment:
+      HOME: /tmp
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=8m,mode=1777
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: "2"

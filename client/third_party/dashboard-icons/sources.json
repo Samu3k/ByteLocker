@@ -1,0 +1,270 @@
+{
+  "project": "Dashboard Icons",
+  "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+  "icons": [
+    {
+      "slug": "apple",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/apple.png",
+      "sha256": "2287c6c6c4d166217e5ec3b786d103a6b88f91092df806646d1ce4dcab759ea1"
+    },
+    {
+      "slug": "bitwarden",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/bitwarden.png",
+      "sha256": "d264c13c550f2e226ec05ff8d19870f092d6c7e8ad68b536454d88f323d5a415"
+    },
+    {
+      "slug": "discord",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/discord.png",
+      "sha256": "13ae2215f810ed44c9689dad38d622e5555dbc25c4eb347f46ad1c8a3539574c"
+    },
+    {
+      "slug": "dropbox",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/dropbox.png",
+      "sha256": "b390c5822da3cab6cf4042e3abb91c1d7dc4ecb079a335b1a8e75198143226a3"
+    },
+    {
+      "slug": "ebay",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/ebay.png",
+      "sha256": "83eee5a5cc2f1fa6583be2848f9bf2381165fa26693fb4a5e1265fb874eba08d"
+    },
+    {
+      "slug": "facebook",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/facebook.png",
+      "sha256": "4466c5537cbaad490a0a67414898b440e88d97203128e8f77ab0466d109f7897"
+    },
+    {
+      "slug": "github",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/github.png",
+      "sha256": "1ad6348921b99235d360b2153b33e68e077322ba28a34590fde9f793d4071a25"
+    },
+    {
+      "slug": "gitlab",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/gitlab.png",
+      "sha256": "e9e46ff013d9a8c647ffdddf268cc48255581270a45c70095419452e3e45b42c"
+    },
+    {
+      "slug": "gmail",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/gmail.png",
+      "sha256": "001978c1c2f75ff8d771034828efe7a939463408fc6b6467ae950631c76e19d1"
+    },
+    {
+      "slug": "google",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/google.png",
+      "sha256": "f8aaaf308e14fef5864d7f5eab1b85990155998b6da4ff51dde5f5118afe5a5d"
+    },
+    {
+      "slug": "immich",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/immich.png",
+      "sha256": "3ab52ec3b143932f52492fc7bf60ce7f56b0247bb5707f5d3d7a4f3a6417f2c9"
+    },
+    {
+      "slug": "instagram",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/instagram.png",
+      "sha256": "0cfeb000244665b3a3f6d539d95c02d1577d0fb62bd3aed8c93dad7aa55f296a"
+    },
+    {
+      "slug": "jellyfin",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/jellyfin.png",
+      "sha256": "2e45c7bb04b1fdbc70737be1676c73bcfbe98dcd9f72dcd063196c7075c65b37"
+    },
+    {
+      "slug": "netflix",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/netflix.png",
+      "sha256": "f6fd02b1c4823ceb7d0782134d48f1ca0e418aff71f9fb0e84f09626c3566746"
+    },
+    {
+      "slug": "nextcloud",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/nextcloud.png",
+      "sha256": "76255228d7ad2eb781b509a868fe054e32f18afc875ed80c3e986da2c9366e11"
+    },
+    {
+      "slug": "notion",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/notion.png",
+      "sha256": "385d360e996dc36bb5967ee3eeb1bdb21b69fecb74b0784c53574156a973f6f1"
+    },
+    {
+      "slug": "paypal",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/paypal.png",
+      "sha256": "e2ca5ac17f9c7f3e58e19abd3c87e577479468438513b58edb6b7a50ceea0097"
+    },
+    {
+      "slug": "playstation",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/playstation.png",
+      "sha256": "85f7e1356b9ad67a8bd75049e248b048eb174a0a652e3d3507738971bb2e5a38"
+    },
+    {
+      "slug": "proton",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/proton.png",
+      "sha256": "4d0dac25b68824ce0015f8d685d4ea20ec0c7c4b012b5d79942356ae746fa8a6"
+    },
+    {
+      "slug": "reddit",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/reddit.png",
+      "sha256": "d1eda6164d659f19ebf93964589a689224a3cb26df7331eea10a910544447ef5"
+    },
+    {
+      "slug": "signal",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/signal.png",
+      "sha256": "bf297032cb3686701f14573679a9a922499b690cc515bd5279d262aeb23a40ee"
+    },
+    {
+      "slug": "spotify",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/spotify.png",
+      "sha256": "253d15d7551c4fd34d525965023dd4cd2f5db0d2f5f05497d59015017d5d079a"
+    },
+    {
+      "slug": "steam",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/steam.png",
+      "sha256": "85a46d68f46d5c019e71ebabd98ba016418d18ff2222932cdf35a2f8cddf08e4"
+    },
+    {
+      "slug": "telegram",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/telegram.png",
+      "sha256": "8c650d14ca47eb6fd72aa3347d9d5f284016b7eae1e3b9606555b354db9387f3"
+    },
+    {
+      "slug": "tiktok",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/tiktok.png",
+      "sha256": "34757df3705d868debed060a8fa88f90e728dc70c76bb06cb81c9238ef326ee1"
+    },
+    {
+      "slug": "twitch",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/twitch.png",
+      "sha256": "70412a96c18ac83210d90e736d36012e7f64ea2fdfe5afb61546de6dacb06158"
+    },
+    {
+      "slug": "whatsapp",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/whatsapp.png",
+      "sha256": "a276e094b5e89be22e4cc76e5c0200b6e8c94a08449adc16fcf11dd1d49ee0fc"
+    },
+    {
+      "slug": "x",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/x.png",
+      "sha256": "32a7e2dede5e29f94724a267f96743fde931038c3f3be13802de159b548791e2"
+    },
+    {
+      "slug": "youtube",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/youtube.png",
+      "sha256": "21712266fd01c447e36b4461ff86124735c483c8921252c011f0a43547031552"
+    },
+    {
+      "slug": "microsoft",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/microsoft.png",
+      "sha256": "611498739686cd019a1cd47f818e9bc6e3b7c44e324a264dd903af2fd9243a26"
+    },
+    {
+      "slug": "microsoft-outlook",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/microsoft-outlook.png",
+      "sha256": "5a7f6197db0ced5ce1a0ff4151ce8d56cd901ead443860c535d4e5e4b702e213"
+    },
+    {
+      "slug": "amazon",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/amazon.png",
+      "sha256": "91bce8152073af09fc713e59ad93678b81e130d56307f205078f9b895db76d13"
+    },
+    {
+      "slug": "chatgpt",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/chatgpt.png",
+      "sha256": "4e881a7f017181681438748d2409240a104e1764860847b49e894afac032f5ad"
+    },
+    {
+      "slug": "openai",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/openai.png",
+      "sha256": "59b73281e42b95f2471201f55caae6c52932b38d069d612fb84c994a78fe12f2"
+    },
+    {
+      "slug": "adobe",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/adobe.png",
+      "sha256": "2c9d9f18d02d9e9dd5c11bc1903f05791271fd610bc19fd51bb96ddeb1c7f8d9"
+    },
+    {
+      "slug": "linkedin",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/linkedin.png",
+      "sha256": "c3c9c8f95685ca89e589fde2f7f293d4c64e967ecc3c0e5fd4b36c692693c4dc"
+    },
+    {
+      "slug": "google-drive",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/google-drive.png",
+      "sha256": "5fbba4ed5682e146f4c4d7b75083df0561d21d87315d6b93463ed5d415008644"
+    },
+    {
+      "slug": "google-photos",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/google-photos.png",
+      "sha256": "20947dd25d0306c3a2e644202c932beffc6036545af5026c921f2da5eebf3e80"
+    },
+    {
+      "slug": "microsoft-onedrive",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/microsoft-onedrive.png",
+      "sha256": "9762f233bb99f4fbdb1b653764a49d755c7e434e1ec39847e066169f5d90583c"
+    },
+    {
+      "slug": "microsoft-teams",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/microsoft-teams.png",
+      "sha256": "ef457895984d3f042a1c6a8be9bc20596dddc874bdd29a79ac968b0b47ae1393"
+    },
+    {
+      "slug": "disney-plus",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/disney-plus.png",
+      "sha256": "43cda8df5e8efe8450d633efb39450b467910ea8f8d4a4ece1ee0185d3a1895e"
+    },
+    {
+      "slug": "xbox",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/xbox.png",
+      "sha256": "fa5f275bbd761c8e41b63eb5c91e49607f3cd1d5361ed5ec36aee421c2a50610"
+    },
+    {
+      "slug": "epic-games",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/epic-games.png",
+      "sha256": "a142e14d37f7dbc1db564c1b6d236f1f1f59cc050bbb7960dbf2170ae2af85c8"
+    },
+    {
+      "slug": "casaos",
+      "revision": "104a791794ef68b31bfecac676ddace8c223fd27",
+      "url": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/104a791794ef68b31bfecac676ddace8c223fd27/png/casaos.png",
+      "sha256": "8707d3ae93bbfd58f776c853f22270e2eb2c3ba1504bed19b41b6c64054331f2"
+    }
+  ]
+}

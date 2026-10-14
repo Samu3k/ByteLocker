@@ -1,0 +1,66 @@
+name: bytelocker
+services:
+  bytelocker:
+    image: bytelocker:dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    user: "10001:10001"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 384m
+    cpus: 1.0
+    pids_limit: 128
+    environment:
+      GOMEMLIMIT: 256MiB
+      GOMAXPROCS: "2"
+      TMPDIR: /tmp
+    volumes:
+      - type: bind
+        source: ${BYTELOCKER_DATA_DIR:-/DATA/AppData/bytelocker/data}
+        target: /data
+        bind:
+          create_host_path: false
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m,mode=1777
+    healthcheck:
+      test: [CMD, /usr/local/bin/bytelocker-healthcheck]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3
+    stop_grace_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: "2"
+    x-casaos:
+      envs: []
+      ports: []
+      volumes:
+        - container: /data
+          description:
+            en_us: Encrypted vault database and operational keys
+            it_it: Database vault cifrato e chiavi operative
+
+x-casaos:
+  architectures: [amd64, arm64]
+  main: bytelocker
+  category: Utilities
+  developer: ByteLocker
+  title:
+    en_us: ByteLocker (development)
+    it_it: ByteLocker (sviluppo)
+  tagline:
+    en_us: Self-hosted encrypted vault API
+    it_it: Server per vault cifrati
+  description:
+    en_us: Development server. Enable the optional Quick Tunnel only for test accounts.
+    it_it: Server in sviluppo. Attiva il Quick Tunnel opzionale solo con account di prova.
+  tips:
+    before_install:
+      en_us: Build bytelocker:dev locally. The admin panel is available at /admin through your HTTPS tunnel. No host ports are published.
+      it_it: Compila localmente bytelocker:dev. Pannello amministratore su /admin attraverso il tunnel HTTPS. Nessuna porta host pubblicata.

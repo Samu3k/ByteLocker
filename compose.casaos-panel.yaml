@@ -1,0 +1,8 @@
+# Metadata only; include when importing/configuring the existing app in CasaOS.
+# Set BYTELOCKER_PUBLIC_HOST to the current HTTPS hostname, without scheme/path.
+x-casaos:
+  scheme: https
+  hostname: ${BYTELOCKER_PUBLIC_HOST:?Set BYTELOCKER_PUBLIC_HOST to the tunnel hostname}
+  port_map: "443"
+  index: /admin
+  icon: https://${BYTELOCKER_PUBLIC_HOST}/brand.png

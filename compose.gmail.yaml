@@ -1,0 +1,13 @@
+# Add this override only after preparing a private Gmail app-password file.
+services:
+  bytelocker:
+    environment:
+      PM_SMTP_USERNAME: ${PM_SMTP_USERNAME:?Set PM_SMTP_USERNAME in the private .env file}
+      PM_SMTP_APP_PASSWORD_FILE: /run/secrets/gmail-app-password
+    volumes:
+      - type: bind
+        source: ${BYTELOCKER_GMAIL_PASSWORD_FILE:-/DATA/AppData/bytelocker/secrets/gmail-app-password}
+        target: /run/secrets/gmail-app-password
+        read_only: true
+        bind:
+          create_host_path: false

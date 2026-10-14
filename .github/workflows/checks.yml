@@ -1,0 +1,57 @@
+name: Source checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  publication:
+    name: Publication guard
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - run: node --test scripts/check-publication.test.cjs
+      - run: node scripts/check-publication.cjs --staged
+  backend:
+    name: Go server and backup
+    runs-on: ubuntu-latest
+    needs: publication
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
+        with:
+          go-version: '1.27.1'
+          cache-dependency-path: backend/go.sum
+      - run: go test -buildvcs=false ./...
+      - run: node maintenance-tests/backup-wrapper.cjs
+  client:
+    name: Flutter client
+    runs-on: ubuntu-latest
+    needs: publication
+    defaults:
+      run:
+        working-directory: client
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2
+        with:
+          flutter-version: '3.47.7'
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test --concurrency=1

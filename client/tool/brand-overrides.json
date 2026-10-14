@@ -1,0 +1,478 @@
+{
+  "github": {
+    "domains": [
+      "github.com",
+      "github.dev"
+    ],
+    "title": "GitHub",
+    "names": [
+      "github"
+    ]
+  },
+  "gmail": {
+    "domains": [
+      "gmail.com",
+      "mail.google.com"
+    ],
+    "title": "Gmail",
+    "names": [
+      "gmail"
+    ]
+  },
+  "google": {
+    "title": "Google",
+    "domains": [
+      "google.com",
+      "google.it",
+      "google.de",
+      "google.fr",
+      "google.co.uk"
+    ],
+    "names": [
+      "google"
+    ]
+  },
+  "discord": {
+    "domains": [
+      "discord.com",
+      "discord.gg"
+    ],
+    "title": "Discord",
+    "names": [
+      "discord"
+    ]
+  },
+  "telegram": {
+    "domains": [
+      "telegram.org",
+      "t.me"
+    ],
+    "title": "Telegram",
+    "names": [
+      "telegram"
+    ]
+  },
+  "spotify": {
+    "domains": [
+      "spotify.com"
+    ],
+    "title": "Spotify",
+    "names": [
+      "spotify"
+    ]
+  },
+  "netflix": {
+    "domains": [
+      "netflix.com"
+    ],
+    "title": "Netflix",
+    "names": [
+      "netflix"
+    ]
+  },
+  "steam": {
+    "domains": [
+      "steampowered.com",
+      "steamcommunity.com"
+    ],
+    "title": "Steam",
+    "names": [
+      "steam"
+    ]
+  },
+  "paypal": {
+    "title": "PayPal",
+    "domains": [
+      "paypal.com",
+      "paypal.me"
+    ],
+    "names": [
+      "paypal"
+    ]
+  },
+  "jellyfin": {
+    "domains": [
+      "jellyfin.org"
+    ],
+    "title": "Jellyfin",
+    "names": [
+      "jellyfin"
+    ]
+  },
+  "immich": {
+    "domains": [
+      "immich.app"
+    ],
+    "title": "Immich",
+    "names": [
+      "immich"
+    ]
+  },
+  "apple": {
+    "title": "Apple",
+    "domains": [
+      "apple.com",
+      "icloud.com"
+    ],
+    "names": [
+      "apple",
+      "icloud"
+    ]
+  },
+  "facebook": {
+    "domains": [
+      "facebook.com",
+      "fb.com"
+    ],
+    "title": "Facebook",
+    "names": [
+      "facebook"
+    ]
+  },
+  "instagram": {
+    "domains": [
+      "instagram.com"
+    ],
+    "title": "Instagram",
+    "names": [
+      "instagram"
+    ]
+  },
+  "reddit": {
+    "domains": [
+      "reddit.com"
+    ],
+    "title": "Reddit",
+    "names": [
+      "reddit"
+    ]
+  },
+  "signal": {
+    "domains": [
+      "signal.org"
+    ],
+    "title": "Signal",
+    "names": [
+      "signal"
+    ]
+  },
+  "whatsapp": {
+    "domains": [
+      "whatsapp.com"
+    ],
+    "title": "WhatsApp",
+    "names": [
+      "whatsapp"
+    ]
+  },
+  "dropbox": {
+    "domains": [
+      "dropbox.com"
+    ],
+    "title": "Dropbox",
+    "names": [
+      "dropbox"
+    ]
+  },
+  "gitlab": {
+    "domains": [
+      "gitlab.com"
+    ],
+    "title": "GitLab",
+    "names": [
+      "gitlab"
+    ]
+  },
+  "protonmail": {
+    "domains": [
+      "mail.proton.me",
+      "protonmail.com",
+      "protonmail.ch",
+      "pm.me"
+    ],
+    "title": "Proton Mail",
+    "names": [
+      "protonmail",
+      "proton mail"
+    ]
+  },
+  "proton": {
+    "domains": [
+      "proton.me",
+      "protonvpn.com"
+    ],
+    "title": "Proton",
+    "names": [
+      "proton"
+    ]
+  },
+  "twitch": {
+    "domains": [
+      "twitch.tv"
+    ],
+    "title": "Twitch",
+    "names": [
+      "twitch"
+    ]
+  },
+  "youtube": {
+    "domains": [
+      "youtube.com",
+      "youtu.be"
+    ],
+    "title": "YouTube",
+    "names": [
+      "youtube"
+    ]
+  },
+  "bitwarden": {
+    "domains": [
+      "bitwarden.com"
+    ],
+    "title": "Bitwarden",
+    "names": [
+      "bitwarden"
+    ]
+  },
+  "microsoft": {
+    "title": "Microsoft",
+    "domains": [
+      "microsoft.com",
+      "live.com",
+      "microsoftonline.com",
+      "office.com",
+      "office365.com"
+    ],
+    "names": [
+      "microsoft",
+      "office",
+      "microsoft 365"
+    ]
+  },
+  "microsoft-outlook": {
+    "title": "Outlook",
+    "domains": [
+      "outlook.com",
+      "outlook.live.com",
+      "outlook.office.com",
+      "outlook.office365.com",
+      "hotmail.com"
+    ],
+    "names": [
+      "outlook",
+      "hotmail",
+      "microsoft outlook"
+    ]
+  },
+  "amazon": {
+    "title": "Amazon",
+    "domains": [
+      "amazon.com",
+      "amazon.it",
+      "amazon.de",
+      "amazon.fr",
+      "amazon.es",
+      "amazon.co.uk",
+      "amazon.co.jp",
+      "amazon.ca",
+      "amazon.com.au"
+    ],
+    "names": [
+      "amazon"
+    ]
+  },
+  "chatgpt": {
+    "title": "ChatGPT",
+    "domains": [
+      "chatgpt.com",
+      "chat.openai.com"
+    ],
+    "names": [
+      "chatgpt",
+      "chat gpt"
+    ]
+  },
+  "openai": {
+    "title": "OpenAI",
+    "domains": [
+      "openai.com"
+    ],
+    "names": [
+      "openai",
+      "open ai"
+    ]
+  },
+  "adobe": {
+    "title": "Adobe",
+    "domains": [
+      "adobe.com",
+      "adobelogin.com"
+    ],
+    "names": [
+      "adobe"
+    ]
+  },
+  "linkedin": {
+    "title": "LinkedIn",
+    "domains": [
+      "linkedin.com"
+    ],
+    "names": [
+      "linkedin"
+    ]
+  },
+  "ebay": {
+    "title": "eBay",
+    "domains": [
+      "ebay.com",
+      "ebay.it",
+      "ebay.de",
+      "ebay.co.uk",
+      "ebay.fr",
+      "ebay.es"
+    ],
+    "names": [
+      "ebay"
+    ]
+  },
+  "tiktok": {
+    "title": "TikTok",
+    "domains": [
+      "tiktok.com"
+    ],
+    "names": [
+      "tiktok"
+    ]
+  },
+  "x": {
+    "title": "X",
+    "domains": [
+      "x.com",
+      "twitter.com"
+    ],
+    "names": [
+      "twitter",
+      "x"
+    ]
+  },
+  "nextcloud": {
+    "title": "Nextcloud",
+    "domains": [
+      "nextcloud.com"
+    ],
+    "names": [
+      "nextcloud"
+    ]
+  },
+  "homeassistant": {
+    "title": "Home Assistant",
+    "domains": [
+      "home-assistant.io"
+    ],
+    "names": [
+      "home assistant"
+    ]
+  },
+  "google-drive": {
+    "title": "Google Drive",
+    "domains": [
+      "drive.google.com"
+    ],
+    "names": [
+      "google drive",
+      "gdrive"
+    ]
+  },
+  "google-photos": {
+    "title": "Google Foto",
+    "domains": [
+      "photos.google.com"
+    ],
+    "names": [
+      "google foto",
+      "google photos"
+    ]
+  },
+  "microsoft-onedrive": {
+    "title": "OneDrive",
+    "domains": [
+      "onedrive.live.com",
+      "onedrive.com"
+    ],
+    "names": [
+      "onedrive",
+      "one drive"
+    ]
+  },
+  "microsoft-teams": {
+    "title": "Microsoft Teams",
+    "domains": [
+      "teams.microsoft.com",
+      "teams.live.com"
+    ],
+    "names": [
+      "teams",
+      "microsoft teams"
+    ]
+  },
+  "disney-plus": {
+    "title": "Disney+",
+    "domains": [
+      "disneyplus.com"
+    ],
+    "names": [
+      "disney plus",
+      "disney"
+    ]
+  },
+  "playstation": {
+    "title": "PlayStation",
+    "domains": [
+      "playstation.com",
+      "sonyentertainmentnetwork.com"
+    ],
+    "names": [
+      "playstation",
+      "psn"
+    ]
+  },
+  "xbox": {
+    "title": "Xbox",
+    "domains": [
+      "xbox.com"
+    ],
+    "names": [
+      "xbox"
+    ]
+  },
+  "epic-games": {
+    "title": "Epic Games",
+    "domains": [
+      "epicgames.com"
+    ],
+    "names": [
+      "epic games",
+      "epic"
+    ]
+  },
+  "casaos": {
+    "title": "CasaOS",
+    "domains": [
+      "casaos.io"
+    ],
+    "names": [
+      "casaos",
+      "casa os"
+    ]
+  },
+  "notion": {
+    "title": "Notion",
+    "domains": [
+      "notion.so",
+      "notion.com"
+    ],
+    "names": [
+      "notion"
+    ]
+  }
+}
