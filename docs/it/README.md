@@ -4,7 +4,7 @@
   <p><strong>Le tue password. Il tuo server.</strong></p>
   <p>Vault cifrato per Android e Windows, sul tuo server CasaOS / Docker.</p>
   <p><a href="https://github.com/Samu3k/ByteLocker/releases/tag/v0.3.1">Scarica</a> · <a href="getting-started.md">Primo utilizzo</a> · <a href="self-hosting.md">Installa il server</a> · <a href="../../README.md">English</a></p>
-  <p><sub>Client 0.3.1 · Server 0.2.3 · Anteprima privata</sub></p>
+  <p><sub>Client 0.3.1 · Server 0.2.3 · Beta pubblica</sub></p>
 </div>
 
 ![ByteLocker su Windows con dati di prova](../images/031-vault-desktop.png)
@@ -24,12 +24,14 @@ Scarica il client dalle [Releases](https://github.com/Samu3k/ByteLocker/releases
 
 **Vuoi un server tuo?** Segui la [guida CasaOS](self-hosting.md). Ogni installazione ha utenti e chiavi indipendenti.
 
-Il client non contiene un server personale o credenziali preimpostate. I download GitHub richiedono accesso alla repository privata; il gestore può condividere direttamente i pacchetti.
+Il client non contiene un server personale o credenziali preimpostate. I download sono pubblici; per registrarsi su un server serve comunque un invito del gestore.
 
 ## Sicurezza e limiti
 
 Il vault viene cifrato sul dispositivo con Argon2id e AES-256-GCM. Master Password e chiave del vault non vengono inviate al server.
 
-**È un'anteprima in sviluppo, senza revisione di sicurezza indipendente:** inizia con dati di prova. Mancano sincronizzazione offline, recupero password, Windows Hello e vault web. Restano da completare prove passkey, firma pubblica, indirizzo HTTPS stabile e scelta della licenza.
+**È un'anteprima in sviluppo, senza revisione di sicurezza indipendente:** inizia con dati di prova. Mancano sincronizzazione offline, recupero password, Windows Hello e vault web. Restano da completare prove passkey, firma pubblica e indirizzo HTTPS stabile. La beta Android mantiene la firma di prova e non è una release Play Store.
+
+Codice ByteLocker sotto [GPL-3.0-only](../../LICENSE), copyright © 2026 Samu3k. Le dipendenze e i loghi mantengono le proprie licenze.
 
 [Documentazione](../README.md) · [Sicurezza](../../.github/SECURITY.md) · [Contribuire](../../.github/CONTRIBUTING.md)

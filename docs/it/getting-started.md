@@ -41,4 +41,4 @@ Il gestore aggiorna il server a 0.2.3 e distribuisce client 0.3.1. Per ciascun a
 
 Fate una prova con credenziali inventate, verificando isolamento tra account, riapertura, copia, biometria e salvataggio da due dispositivi dello stesso utente. Il gestore deve verificare un backup e un ripristino separato sul proprio server prima di affidargli dati importanti.
 
-La repository privata e le sue release richiedono accesso GitHub autorizzato. Puoi condividere direttamente il solo pacchetto client senza aggiungere gli amici alla repository. Pubblicare in futuro il codice o il client non mette a disposizione il tuo server: chi desidera un'istanza propria segue [self-hosting](self-hosting.md).
+La repository e i download della beta sono pubblici. Questo non concede accesso al server del gestore: ogni utente deve ricevere un invito personale. Chi desidera un'istanza propria segue [self-hosting](self-hosting.md).

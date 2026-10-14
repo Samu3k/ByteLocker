@@ -10,7 +10,7 @@
     <a href="docs/it/README.md">Italiano</a>
   </p>
   <p><a href="https://github.com/Samu3k/ByteLocker/actions/workflows/checks.yml"><img src="https://github.com/Samu3k/ByteLocker/actions/workflows/checks.yml/badge.svg" alt="Source checks" /></a></p>
-  <p><sub>Clients 0.3.1 · Server 0.2.3 · Private preview</sub></p>
+  <p><sub>Clients 0.3.1 · Server 0.2.3 · Public beta</sub></p>
 </div>
 
 ![ByteLocker on Windows, showing sample data](docs/images/031-vault-desktop.png)
@@ -42,16 +42,16 @@
 
 **Invited by a friend?** Install a client, enter the HTTPS server address and use your personal invitation. [Quick start →](docs/getting-started.md)
 
-No personal server, account or email credentials are bundled. Private repository downloads require GitHub access; the owner can also share the client files directly.
+No personal server, account or email credentials are bundled. Downloads are public; joining a server still requires an invitation from its owner.
 
 ## Privacy & project status
 
 Vault contents are encrypted on the client with Argon2id and AES-256-GCM. Your Master Password and vault key are not sent to the server. Server secrets and backups stay outside Git.
 
-**This is a development preview, without an independent security audit.** Start with test credentials. Offline sync, password recovery, Windows Hello and a web vault are not available yet; Android passkey compatibility still needs device testing. A stable HTTPS address, production signing and a code license remain on the roadmap.
+**This is a development preview, without an independent security audit.** Start with test credentials. Offline sync, password recovery, Windows Hello and a web vault are not available yet; Android passkey compatibility still needs device testing. A stable HTTPS address and production signing remain on the roadmap. The Android beta uses the existing test signature; it is not a Play Store release.
 
 ## Explore
 
 [User guide](docs/getting-started.md) · [Self-hosting](docs/self-hosting.md) · [Client builds](client/README.md) · [Contributing](.github/CONTRIBUTING.md) · [Security](.github/SECURITY.md) · [All documentation](docs/README.md)
 
-<sub>Screenshots use sample data. Brand logos belong to their respective owners. Third-party notices are preserved in client/third_party and maintenance/third_party; a ByteLocker code license has not yet been selected.</sub>
+<sub>Screenshots use sample data. Brand logos belong to their respective owners. ByteLocker code is licensed under <a href="LICENSE">GPL-3.0-only</a>, copyright © 2026 Samu3k. Third-party assets and dependencies retain their own licenses and notices in client/third_party and maintenance/third_party.</sub>

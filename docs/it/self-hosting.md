@@ -2,7 +2,7 @@
 
 Ogni installazione genera la propria identità, le proprie chiavi operative e il proprio database. Il client non ha un server centrale predefinito. Questa guida usa CasaOS/Linux x86_64, Docker Compose e la cartella standard `/DATA/AppData/bytelocker`.
 
-I pacchetti server sono nelle [Releases](https://github.com/Samu3k/ByteLocker/releases). Durante la preparazione la repository è privata e la release può essere in bozza: per scaricarli occorre accesso autorizzato. Il pacchetto contiene sorgenti/configurazioni di esempio, non account o segreti di un'altra istanza.
+I pacchetti server sono nelle [Releases](https://github.com/Samu3k/ByteLocker/releases). Repository e download della beta sono pubblici. Il pacchetto contiene sorgenti/configurazioni di esempio, non account o segreti di un'altra istanza.
 
 ## 1. Prepara una nuova installazione
 

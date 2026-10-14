@@ -33,4 +33,4 @@ Quick Tunnel addresses can change after recreation. An online server is required
 
 Use server 0.2.3 and clients 0.3.1. Create a separate email-bound user invitation for each friend in the admin panel. Share the invitation privately: invitation delivery is manual, while registration verification is sent by email.
 
-Start with synthetic credentials and verify account isolation, reopening, copying and biometrics. Test a backup and restore before relying on the server. Friends can receive the client packages directly without GitHub access. [Host your own server →](self-hosting.md)
+Start with synthetic credentials and verify account isolation, reopening, copying and biometrics. Test a backup and restore before relying on the server. The beta downloads are public; this does not grant access to any existing server. Each server owner controls invitations. [Host your own server →](self-hosting.md)

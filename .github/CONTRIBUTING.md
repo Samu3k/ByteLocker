@@ -1,6 +1,6 @@
 # Contributing
 
-The repository is private while distribution is prepared. A code license has not yet been selected; access alone does not grant reuse rights.
+ByteLocker is a public beta, licensed under [GPL-3.0-only](../LICENSE), copyright © 2026 Samu3k. Third-party dependencies and assets retain their own licenses. Contributions to ByteLocker code are accepted under the same project license.
 
 ## Set up
 

@@ -1,6 +1,6 @@
 # Security
 
-ByteLocker is a development preview with no independent cryptographic audit. Use test credentials while evaluating it.
+ByteLocker is a public beta with no independent cryptographic audit. Use test credentials while evaluating it.
 
 ## Report a vulnerability privately
 
