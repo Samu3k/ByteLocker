@@ -19,7 +19,7 @@ func TestBackupCheckNeverCreatesOrMigratesDatabase(t *testing.T) {
 	}
 	for _, mutation := range []string{"DELETE FROM operational_key_binding", "UPDATE operational_key_binding SET fingerprint=zeroblob(32)", "DELETE FROM schema_migrations WHERE version=9", "UPDATE schema_migrations SET checksum='invalid' WHERE version=9", "PRAGMA ignore_check_constraints=ON; UPDATE instance SET server_id=zeroblob(16)"} {
 		t.Run(mutation, func(t *testing.T) {
-			directory := t.TempDir()
+			directory := filepath.Join(t.TempDir(), "data")
 			s, err := Open(ctx, directory)
 			if err != nil {
 				t.Fatal(err)
