@@ -1,118 +1,57 @@
 <div align="center">
-  <img src="client/assets/brand/bytelocker.png" alt="ByteLocker" width="140" />
+  <img src="client/assets/brand/bytelocker.png" alt="ByteLocker logo" width="200" />
   <h1>ByteLocker</h1>
-  <p><strong>Le tue credenziali, sul tuo server.</strong></p>
-  <p>Client Android e Windows · Server self-hosted per CasaOS/Docker</p>
+  <p><strong>Your passwords. Your server.</strong></p>
+  <p>An encrypted vault for Android and Windows, hosted on your own CasaOS / Docker server.</p>
   <p>
-    <a href="https://github.com/Samu3k/ByteLocker/releases">Pacchetti</a> ·
-    <a href="docs/getting-started.md">Inizia qui</a> ·
-    <a href="docs/self-hosting.md">Installa il server</a> ·
-    <a href="SECURITY.md">Sicurezza</a>
+    <a href="https://github.com/Samu3k/ByteLocker/releases/tag/v0.3.1"><strong>Download</strong></a> ·
+    <a href="docs/getting-started.md">Getting started</a> ·
+    <a href="docs/self-hosting.md">Self-hosting</a> ·
+    <a href="docs/it/README.md">Italiano</a>
   </p>
+  <p><a href="https://github.com/Samu3k/ByteLocker/actions/workflows/checks.yml"><img src="https://github.com/Samu3k/ByteLocker/actions/workflows/checks.yml/badge.svg" alt="Source checks" /></a></p>
+  <p><sub>Clients 0.3.1 · Server 0.2.3 · Private preview</sub></p>
 </div>
 
-ByteLocker è un password manager in sviluppo che cifra le credenziali sul dispositivo e le conserva sul server scelto dall'utente. Puoi condividere il tuo server con persone invitate, ciascuna con un account e un vault separati, oppure installare un'istanza indipendente.
+![ByteLocker on Windows, showing sample data](docs/images/031-vault-desktop.png)
 
-**Versioni correnti:** client **0.3.1** · server **0.2.3**. Questa repository è inizialmente privata per completare la preparazione alla distribuzione. I pacchetti sono una versione di prova, non una pubblicazione Play Store.
+## A vault that feels at home
 
-![Vault Windows con dati di prova](docs/images/031-vault-desktop.png)
+- **Stay organized** — categories, favorites, tags and over 3,300 bundled brand icons.
+- **Copy in a tap** — usernames, emails, passwords and live 2FA codes.
+- **Unlock your way** — Master Password, optional Android biometrics and Android passkey provider support.
+- **Host it yourself** — separate vaults for invited users, an admin panel and verified backup tools.
 
-## Dentro ByteLocker
-
-| Funzione | Disponibilità |
-| --- | --- |
-| Login, password, email, URL, note e tag | Android e Windows |
-| Categorie personalizzate e preferiti cifrati | Android e Windows |
-| Oltre 3.300 loghi locali, con scelta manuale | Android e Windows |
-| Codici TOTP a 6 cifre, con copia al tocco | Android e Windows |
-| Dettagli in sola lettura e modifica con la matita | Android e Windows |
-| Sblocco con Master Password | Android e Windows |
-| Sblocco biometrico e provider passkey | Android compatibile; limiti sotto |
-| Tema scuro, chiaro e di sistema | Android |
-| Pannello con inviti e gestione utenti | Server |
-| Backup coerenti e prova di ripristino | CasaOS/Linux; strumenti inclusi |
-
+<details>
+<summary><strong>Take a look at Android</strong></summary>
+<br />
 <p align="center">
-  <img src="docs/images/031-credential-mobile.png" alt="Dettagli Android, con password nascosta e copia 2FA" width="260" />
+  <img src="docs/images/031-credential-mobile.png" alt="Android credential details" width="250" />
   &nbsp;&nbsp;
-  <img src="docs/images/031-navigation-mobile.png" alt="Categorie, preferiti e tag su Android" width="260" />
+  <img src="docs/images/031-navigation-mobile.png" alt="Android categories and favorites" width="250" />
 </p>
+</details>
 
-Le immagini mostrano dati sintetici. I marchi delle credenziali appartengono ai rispettivi titolari e non indicano affiliazione.
+## Get ByteLocker
 
-## Due modi di usarlo
+| Platform | Download | Start here |
+| --- | --- | --- |
+| Android ARM64 | [APK](https://github.com/Samu3k/ByteLocker/releases/download/v0.3.1/ByteLocker-0.3.1-android-arm64.apk) | Install over the previous version. |
+| Windows x64 | [ZIP](https://github.com/Samu3k/ByteLocker/releases/download/v0.3.1/ByteLocker-Windows-0.3.1.zip) | Extract the whole folder and run ByteLocker.exe. |
+| CasaOS / Linux x86_64 | [Server package](https://github.com/Samu3k/ByteLocker/releases/download/v0.3.1/bytelocker-casaos-0.2.3.zip) | Follow the [server guide](docs/self-hosting.md). |
 
-**Hai ricevuto un invito?** Installa il client, inserisci l'indirizzo HTTPS ricevuto privatamente dal gestore del server e crea il tuo account con l'email invitata. Il codice email serve alla registrazione; ai successivi sblocchi usi la Master Password o la biometria abilitata. [Guida per utenti e amici →](docs/getting-started.md)
+**Invited by a friend?** Install a client, enter the HTTPS server address and use your personal invitation. [Quick start →](docs/getting-started.md)
 
-**Vuoi il tuo server?** Installa il backend su CasaOS/Docker, configura il mittente email e crea il primo account amministratore. Ogni installazione ha dati, chiavi e utenti indipendenti. [Guida self-hosting →](docs/self-hosting.md)
+No personal server, account or email credentials are bundled. Private repository downloads require GitHub access; the owner can also share the client files directly.
 
-L'app distribuita non contiene il server personale del proprietario della repository, un account preconfigurato o credenziali Gmail. Al primo avvio il campo server è vuoto. I collegamenti configurati dopo l'installazione restano nel profilo locale del singolo dispositivo e non fanno parte dei pacchetti.
+## Privacy & project status
 
-## Scaricare e aggiornare
+Vault contents are encrypted on the client with Argon2id and AES-256-GCM. Your Master Password and vault key are not sent to the server. Server secrets and backups stay outside Git.
 
-I pacchetti sono nella sezione [Releases](https://github.com/Samu3k/ByteLocker/releases), separati dai sorgenti:
+**This is a development preview, without an independent security audit.** Start with test credentials. Offline sync, password recovery, Windows Hello and a web vault are not available yet; Android passkey compatibility still needs device testing. A stable HTTPS address, production signing and a code license remain on the roadmap.
 
-- `ByteLocker-0.3.1-android-arm64.apk`: Android ARM64, compilazione release privata, circa 24,5 MB.
-- `ByteLocker-Windows-0.3.1.zip`: estrarre tutto il contenuto e avviare ByteLocker.exe.
-- `bytelocker-casaos-0.2.3.zip`: sorgenti server, configurazioni di esempio e strumenti di manutenzione Linux x86_64.
-- `ByteLocker-0.3.1-SHA256.txt`: impronte dei tre pacchetti.
+## Explore
 
-La release iniziale può essere in bozza durante la preparazione. Le release di una repository privata sono accessibili solo agli utenti autorizzati. Per una prova tra amici puoi condividere direttamente il solo APK/ZIP del client e inviare separatamente indirizzo e invito, senza dare accesso al codice o al pannello amministratore.
+[User guide](docs/getting-started.md) · [Self-hosting](docs/self-hosting.md) · [Client builds](client/README.md) · [Contributing](.github/CONTRIBUTING.md) · [Security](.github/SECURITY.md) · [All documentation](docs/README.md)
 
-Per chi usa già ByteLocker: installa l'APK sopra la versione precedente e chiudi Windows prima di sostituire la cartella. **Il blocco degli accessi dovuto alle sessioni richiede anche server 0.2.3.** [Guida di aggiornamento →](docs/update-0.3.1.md)
-
-## Come sono protetti i dati
-
-Master Password e chiave del vault non vengono inviate al server. Il client usa Argon2id, chiavi derivate separate e AES-256-GCM; il server conserva gli involucri cifrati e i metadati necessari agli account. Anche categorie, preferiti, tag, TOTP e materiale passkey sono cifrati nel vault. Il server possiede proprie chiavi operative per registrazione, email e autenticazione: queste devono restare nella singola installazione.
-
-La registrazione richiede un invito e conferma email. Il pannello amministratore usa una chiave dedicata a scadenza e non mostra il contenuto dei vault. I client si bloccano dopo cinque minuti consecutivi in background; chiusura e blocco manuale sono immediati.
-
-Il progetto ha test automatici e vettori crittografici, ma **non ha ancora una revisione crittografica indipendente né una certificazione FIDO**. Per la prova privata usa dati di test; la distribuzione stabile richiede di completare i punti della roadmap e verificare backup/ripristino sul proprio server. [Protocollo](docs/crypto-protocol.md) · [Modello delle minacce](docs/threat-model.md) · [Sicurezza Android](docs/android-security.md)
-
-## Sviluppare
-
-Requisiti del progetto: **Go 1.27.1**, **Flutter 3.47.7 / Dart 3.13.5**. Le dipendenze sono fissate in go.mod/go.sum e pubspec.lock.
-
-```sh
-# Dalla radice del repository
-node --test scripts/check-publication.test.cjs
-node scripts/check-publication.cjs --staged
-
-cd backend
-go test -buildvcs=false ./...
-cd ../client
-flutter pub get
-flutter analyze
-flutter test --concurrency=1
-```
-
-Per compilare Android servono SDK Android e JDK compatibili; per Windows, Visual Studio con sviluppo desktop C++. La firma di produzione Android va configurata separatamente: la chiave privata non deve entrare nella repository. [Build dei client →](client/README.md) · [Contribuire →](CONTRIBUTING.md)
-
-GitHub Actions esegue il controllo di pubblicazione, i test Go e l'analisi/test Flutter con permessi di sola lettura, senza credenziali del server o di firma. Non esegue il deploy sul server personale. Le prove locali della 0.3.1 includono la comunicazione Flutter/Go su SQLite temporaneo; la prima esecuzione remota è visibile in Actions.
-
-## Roadmap verso la distribuzione stabile
-
-- Rinnovo delle sessioni nel client e migliore gestione della registrazione interrotta.
-- Cache locale cifrata e sincronizzazione offline.
-- Prove passkey su dispositivi/siti reali e maggiore compatibilità Android.
-- Windows Hello e provider passkey Windows.
-- Firma Android di produzione, installer Windows e procedura di aggiornamento.
-- Revisione di sicurezza indipendente e scelta della licenza prima della pubblicazione aperta.
-
-Il vault web, i vault condivisi e il recupero della Master Password non sono disponibili. Il browser espone attualmente solo il pannello amministratore.
-
-## Documentazione
-
-| Guida | Contenuto |
-| --- | --- |
-| [Primo utilizzo](docs/getting-started.md) | Installazione client, invito e accesso |
-| [Self-hosting](docs/self-hosting.md) | Un server indipendente su CasaOS/Docker |
-| [Backup e ripristino](docs/backup-casaos.md) | Copie private e verifiche di recupero |
-| [Aggiornamento 0.3.1 / 0.2.3](docs/update-0.3.1.md) | Ordine delle operazioni e compatibilità |
-| [Pubblicazione e segreti](docs/repository-security.md) | Cosa resta fuori da Git e dai pacchetti |
-| [Architettura](docs/architecture.md) | Componenti e confini di fiducia |
-| [API](docs/api-contract.md) | Formati e comportamenti del protocollo |
-
-## Licenze e marchi
-
-La licenza del codice ByteLocker sarà scelta prima della pubblicazione aperta; la visibilità privata non concede automaticamente diritti di riutilizzo. Le licenze e le attribuzioni delle dipendenze e dei cataloghi di loghi sono conservate in `client/third_party` e `maintenance/third_party`.
+<sub>Screenshots use sample data. Brand logos belong to their respective owners. Third-party notices are preserved in client/third_party and maintenance/third_party; a ByteLocker code license has not yet been selected.</sub>

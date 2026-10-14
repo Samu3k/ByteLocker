@@ -1,21 +1,21 @@
 ---
-name: Segnala un problema
-about: Un errore riproducibile nei client o nel server
+name: Bug report
+about: A reproducible client or server issue
 title: ''
 labels: bug
 assignees: ''
 ---
 
-**Versioni e dispositivo**
-Client, server, Android/Windows e modello del dispositivo.
+**Versions and device**
+Client, server, OS version and device model.
 
-**Passaggi per riprodurre**
+**Steps to reproduce**
 1.
 2.
 
-**Risultato atteso e risultato ottenuto**
+**Expected and actual behavior**
 
-**Messaggio di errore**
-Riporta solo il testo necessario, oscurando indirizzi personali, email e identificativi.
+**Error message**
+Include only the necessary text. Redact personal URLs, emails and identifiers.
 
-Non allegare vault, backup, password, segreti TOTP, chiavi passkey, codici d'invito o chiavi del pannello. Per vulnerabilità usa le indicazioni in SECURITY.md.
+Never attach vaults, backups, passwords, TOTP secrets, passkey keys, invitations or admin keys. Report vulnerabilities privately using [Security](../SECURITY.md).

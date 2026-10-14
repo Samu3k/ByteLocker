@@ -37,7 +37,7 @@ I certificati/fingerprint pubblici dei browser in privileged_apps.json servono a
 Dalla radice della repository, con Node e Git:
 
 ```sh
-git config core.hooksPath .githooks
+git config core.hooksPath .github/hooks
 git add <file-revisionati>
 node --test scripts/check-publication.test.cjs
 node scripts/check-publication.cjs --staged

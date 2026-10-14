@@ -6,4 +6,4 @@ go.sum text eol=lf
 *.sh text eol=lf
 *.cjs text eol=lf
 *.yml text eol=lf
-.githooks/* text eol=lf
+.github/hooks/* text eol=lf

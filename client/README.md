@@ -1,18 +1,16 @@
-# ByteLocker — client Android e Windows
+# ByteLocker clients
 
-Versione **0.3.1+7**, Flutter **3.47.7 stable**, Dart **3.13.5**. Dipendenze fissate in pubspec.lock. [Panoramica](../README.md) · [Primo utilizzo](../docs/getting-started.md) · [Sicurezza Android](../docs/android-security.md)
+**0.3.1+7** · Flutter **3.47.7** · Dart **3.13.5**
 
-## Funzioni
+[Overview](../README.md) · [User guide](../docs/getting-started.md) · [Contributing](../.github/CONTRIBUTING.md)
 
-Collegamento a un server HTTPS scelto dall'utente, registrazione tramite invito e codice email, login con Master Password, vault online cifrato, ricerca, credenziali in sola lettura, modifica con matita, categorie, preferiti e tag. Catalogo locale di 3.365 loghi, con selezione manuale. Codici TOTP SHA-1 a 6 cifre/30 secondi e pulsanti di copia; Android aggiunge temi, biometria e provider passkey sui dispositivi compatibili.
+Android and Windows share an encrypted online vault, categories, favorites, tags, local brand icons and TOTP copying. Android adds themes, optional biometrics and a passkey provider on compatible devices.
 
-Nessun server personale o account è incorporato. Il collegamento salvato dopo il login contiene soltanto origine HTTPS, identità server/account/vault ed email; rimane nel profilo locale. Password, chiavi e sessioni sbloccate restano in memoria, salvo il contenitore biometrico Android opzionale protetto dal Keystore.
+No server or account is preconfigured. The remembered connection stores only the HTTPS origin, account/server/vault identity and email in the local user profile. Unlocked passwords, keys and sessions stay in memory, except for the optional Android biometric container protected by Keystore.
 
-![Vault Windows con dati sintetici](../docs/images/031-vault-desktop.png)
+## Develop
 
-## Verifica e avvio
-
-Con Flutter nel PATH, dalla cartella client:
+From this directory, with Flutter on PATH:
 
 ```sh
 flutter pub get
@@ -21,40 +19,34 @@ flutter test --concurrency=1
 flutter run -d windows
 ```
 
-Per una build Windows servono Visual Studio con sviluppo desktop C++ e il relativo SDK Windows. Per Android servono Android SDK e JDK compatibili con il progetto Gradle; esegui `flutter doctor -v` per verificare l'ambiente. Flutter genera local.properties e i file effimeri della piattaforma: non pubblicarli.
+Windows requires Visual Studio desktop C++ tools and the Windows SDK. Android requires a compatible JDK and Android SDK. Check `flutter doctor -v`; keep generated platform files and local.properties out of Git.
 
-## Build Windows
+## Build
 
 ```sh
 flutter build windows --release
-```
-
-Distribuisci **tutta** `build/windows/x64/runner/Release`, comprese DLL, asset e dipendenze runtime Visual C++ necessarie. L'eseguibile da solo non basta. Il collegamento utente è nel profilo Windows, fuori dal pacchetto.
-
-## Build Android
-
-```sh
-flutter build apk --debug --target-platform android-arm64
 flutter build apk --release --target-platform android-arm64
 ```
 
-La release non applica una firma debug automatica: firma l'APK con uno strumento/configurazione appropriato e verifica il certificato prima di distribuirlo. Per aggiornare una build già installata, applicationId e certificato devono corrispondere e versionCode deve aumentare. La 0.3.1 distribuita per la prova privata è stata firmata esplicitamente con la stessa chiave delle versioni precedenti; quella chiave non fa parte del repository. La firma pubblica/Play Store richiede una chiave dedicata e una procedura separata.
+**Windows:** distribute the entire build/windows/x64/runner/Release directory, including assets, DLLs and required Visual C++ runtime dependencies.
 
-Le build pubbliche devono essere prodotte in un ambiente pulito. Non aggiungere configurazioni di server personali, file .env, keystore o token come asset o dart-define.
+**Android:** release builds do not automatically use a debug signing key. Configure signing separately and verify the certificate. Updates must keep the application ID and certificate, with an increasing versionCode. The private-preview APK was explicitly signed with the previous test key to allow upgrades; that key is excluded from Git. Public / Play Store distribution needs dedicated production signing.
 
-## Server locale per sviluppo
+Build distribution packages in a clean environment. Never embed private server settings, tokens or signing keys in assets or dart-define values.
 
-Solo in debug è disponibile l'opt-in HTTP locale:
+## Local development server
+
+HTTP is available only through a debug opt-in:
 
 ```sh
 flutter run -d windows --dart-define=PM_ALLOW_LOCAL_HTTP=true
 ```
 
-Usa `http://127.0.0.1:8080` sul PC o `http://10.0.2.2:8080` nell'emulatore Android. Il flag viene ignorato in profile/release; le distribuzioni richiedono HTTPS. Non è una configurazione del server personale e non viene abilitata nei pacchetti consegnati.
+Use http://127.0.0.1:8080 on the desktop or http://10.0.2.2:8080 in the Android emulator. Profile and release builds ignore this flag and require HTTPS.
 
-## Prova con backend Go reale
+## Optional Flutter / Go test
 
-Il test usa SQLite temporaneo e consegna email simulata. Nessuna email reale viene inviata e il server personale non viene usato. Imposta percorsi assoluti del tuo SDK e del client; da backend, su PowerShell:
+This test uses temporary SQLite data and simulated email, without contacting a real instance. From backend in PowerShell:
 
 ```powershell
 $env:BYTELOCKER_FLUTTER_PATH = (Get-Command flutter).Source
@@ -64,20 +56,16 @@ Remove-Item Env:BYTELOCKER_FLUTTER_PATH
 Remove-Item Env:BYTELOCKER_CLIENT_DIR
 ```
 
-La suite ordinaria salta questa prova senza le due variabili. I test specifici del canale Windows sono saltati sugli altri sistemi.
+Without these variables, the ordinary suite skips the optional test. Windows-specific channel tests are skipped on other platforms.
 
-## Compatibilità e limiti attuali
+## Compatibility
 
-- Categorie, preferiti e loghi manuali usano schema cifrato 4: tutti i client dello stesso account devono essere almeno 0.3.0.
-- Il blocco dopo molte riaperture/sessioni richiede anche server 0.2.3: il solo client non corregge il controllo del vecchio server.
-- Il vault richiede rete. Sono ancora da implementare cache cifrata, sincronizzazione offline e rinnovo client degli access token; dopo la scadenza può essere richiesto un nuovo accesso.
-- Le bozze e le scritture non confermate restano in memoria. Non chiudere l'app durante un tentativo pendente che vuoi riprendere.
-- Windows Hello, provider passkey Windows, scansione QR TOTP e vault web non sono inclusi.
-- Il provider passkey Android verifica il chiamante e il relying party; il profilo iniziale non supporta ogni estensione WebAuthn. La compatibilità fisica va verificata sui siti/dispositivi usati.
-- Gli appunti sono marcati sensibili e vengono puliti best effort; il sistema operativo può limitare la pulizia in background.
+- Encrypted schema 4 requires clients 0.3.0 or newer on every device. The repeated-login session-limit fix also requires server 0.2.3.
+- Network access is required. Offline cache/sync and client token renewal are not implemented; expired sessions may require signing in again.
+- Pending drafts remain in memory. Avoid closing the app during an unconfirmed write.
+- Windows Hello, Windows passkey provider, TOTP QR scanning and a web vault are not included.
+- Android passkey support needs testing on real sites/devices. Clipboard clearing is best effort and may be limited by the OS.
 
-## Loghi e attribuzioni
+## Brand assets
 
-Asset locali da [Simple Icons 16.0.0](https://github.com/simple-icons/simple-icons/tree/16.0.0) e [Dashboard Icons](https://github.com/homarr-labs/dashboard-icons), con revisioni, hash e licenze in third_party. Il generatore è `tool/build_brand_catalog.cjs`; le correzioni di nomi/domìni sono in `tool/brand-overrides.json`. Nessuna richiesta a servizi esterni di favicon rivela i siti salvati.
-
-I loghi sono decorativi: non certificano l'autenticità del sito o l'affiliazione di ByteLocker ai titolari dei marchi.
+Local icons come from Simple Icons and Dashboard Icons. Revisions, hashes and licenses are in third_party. The generator is tool/build_brand_catalog.cjs; manual matching overrides are in tool/brand-overrides.json. No external favicon service receives saved website names. Logos are decorative and do not certify a website or imply affiliation.
