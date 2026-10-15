@@ -1,3 +1,5 @@
+import '../l10n/app_strings.dart';
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -103,7 +105,10 @@ class _PasskeyPanelState extends State<PasskeyPanel> {
     } catch (_) {
       if (mounted)
         setState(
-          () => _message = 'Operazione non completata. Puoi riprovare. La passkey viene restituita al sito solo dopo il salvataggio confermato.',
+          () => _message = tr(
+            context,
+            'Operazione non completata. Puoi riprovare. La passkey viene restituita al sito solo dopo il salvataggio confermato.',
+          ),
         );
     } finally {
       if (mounted) setState(() => _busy = false);
@@ -170,7 +175,9 @@ class _PasskeyPanelState extends State<PasskeyPanel> {
       const Icon(Icons.key, size: 44),
       const SizedBox(height: 16),
       Text(
-        widget.request.create ? 'Salva una passkey' : 'Accedi con una passkey',
+        widget.request.create
+            ? tr(context, 'Salva una passkey')
+            : tr(context, 'Accedi con una passkey'),
         style: Theme.of(context).textTheme.headlineSmall,
       ),
       const SizedBox(height: 12),
@@ -182,11 +189,14 @@ class _PasskeyPanelState extends State<PasskeyPanel> {
         DropdownButtonFormField<String>(
           initialValue: '',
           isExpanded: true,
-          decoration: const InputDecoration(
-            labelText: 'Salva nella credenziale',
+          decoration: InputDecoration(
+            labelText: tr(context, 'Salva nella credenziale'),
           ),
           items: [
-            const DropdownMenuItem(value: '', child: Text('Nuova credenziale')),
+            DropdownMenuItem(
+              value: '',
+              child: Text(tr(context, 'Nuova credenziale')),
+            ),
             for (final entry in widget.vault.entries.where(
               (entry) => entry.record.passkey == null,
             ))
@@ -207,14 +217,16 @@ class _PasskeyPanelState extends State<PasskeyPanel> {
           onPressed: _busy ? null : () => _run(_create),
           child: Text(
             _generated == null
-                ? 'Conferma e salva passkey'
-                : 'Riprendi salvataggio passkey',
+                ? tr(context, 'Conferma e salva passkey')
+                : tr(context, 'Riprendi salvataggio passkey'),
           ),
         ),
       ] else ...[
         const SizedBox(height: 24),
         if (_matching.isEmpty)
-          const Text('Nessuna passkey compatibile trovata in questo vault.'),
+          Text(
+            tr(context, 'Nessuna passkey compatibile trovata in questo vault.'),
+          ),
         for (final entry in _matching)
           Card(
             child: ListTile(
@@ -237,7 +249,7 @@ class _PasskeyPanelState extends State<PasskeyPanel> {
                 await _native.cancel();
                 if (mounted) widget.onComplete();
               }),
-        child: const Text('Annulla richiesta'),
+        child: Text(tr(context, 'Annulla richiesta')),
       ),
     ],
   );

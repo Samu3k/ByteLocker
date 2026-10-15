@@ -1,6 +1,6 @@
 # ByteLocker clients
 
-**0.3.1+7** · Flutter **3.47.7** · Dart **3.13.5**
+**0.3.2+8** · Flutter **3.47.7** · Dart **3.13.5**
 
 [Overview](../README.md) · [User guide](../docs/getting-started.md) · [Contributing](../.github/CONTRIBUTING.md)
 

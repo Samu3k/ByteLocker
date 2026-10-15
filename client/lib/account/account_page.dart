@@ -1,3 +1,4 @@
+import '../l10n/app_strings.dart';
 import '../brand.dart';
 
 import 'dart:async';
@@ -124,8 +125,10 @@ class _AccountPageState extends State<AccountPage> with WidgetsBindingObserver {
       setState(() {
         _account = null;
         _showSettings = false;
-        _message =
-            'Vault bloccato. Usa la Master Password o lo sblocco biometrico.';
+        _message = tr(
+          context,
+          'Vault bloccato. Usa la Master Password o lo sblocco biometrico.',
+        );
       });
   }
 
@@ -147,19 +150,33 @@ class _AccountPageState extends State<AccountPage> with WidgetsBindingObserver {
   String _error(Object error) {
     if (error is AccountFailure) {
       if (error.status == 409 && error.code == 'session_limit') {
-        return 'Il server ha raggiunto il limite di sessioni aperte. Aggiorna il server CasaOS alla versione 0.2.3 o successiva, poi riprova: le credenziali rimangono salvate.';
+        return tr(
+          context,
+          'Il server ha raggiunto il limite di sessioni aperte. Aggiorna il server CasaOS alla versione 0.2.3 o successiva, poi riprova: le credenziali rimangono salvate.',
+        );
       }
       return switch (error.status) {
-        401 => 'Email o Master Password non valide.',
-        400 => 'Controlla i dati inseriti o il codice ricevuto.',
-        403 ||
-        404 => 'Operazione non disponibile. Controlla l’invito e il server.',
-        409 => 'Operazione in conflitto. Riprova oppure contatta chi gestisce il server.',
-        429 => 'Troppi tentativi. Attendi prima di riprovare.',
-        _ => 'Connessione non riuscita. Controlla il server e riprova.',
+        401 => tr(context, 'Email o Master Password non valide.'),
+        400 => tr(context, 'Controlla i dati inseriti o il codice ricevuto.'),
+        403 || 404 => tr(
+          context,
+          'Operazione non disponibile. Controlla l’invito e il server.',
+        ),
+        409 => tr(
+          context,
+          'Operazione in conflitto. Riprova oppure contatta chi gestisce il server.',
+        ),
+        429 => tr(context, 'Troppi tentativi. Attendi prima di riprovare.'),
+        _ => tr(
+          context,
+          'Connessione non riuscita. Controlla il server e riprova.',
+        ),
       };
     }
-    return 'Impossibile verificare i dati in sicurezza. Controlla i dati e riprova.';
+    return tr(
+      context,
+      'Impossibile verificare i dati in sicurezza. Controlla i dati e riprova.',
+    );
   }
 
   void _discard(UnlockedAccount account) {
@@ -187,7 +204,10 @@ class _AccountPageState extends State<AccountPage> with WidgetsBindingObserver {
           _pending = null;
           _register = false;
           _code.clear();
-          _message = 'Account creato. Accedi con la tua Master Password.';
+          _message = tr(
+            context,
+            'Account creato. Accedi con la tua Master Password.',
+          );
         });
       } else if (_register) {
         final pending = await _client.register(
@@ -201,7 +221,10 @@ class _AccountPageState extends State<AccountPage> with WidgetsBindingObserver {
         }
         setState(() {
           _pending = pending;
-          _message = 'Inserisci il codice di 8 cifre ricevuto via email.';
+          _message = tr(
+            context,
+            'Inserisci il codice di 8 cifre ricevuto via email.',
+          );
         });
       } else {
         final account = await _client.login(_email.text, password);
@@ -251,7 +274,10 @@ class _AccountPageState extends State<AccountPage> with WidgetsBindingObserver {
       await _client.resend(_pending!);
       if (mounted)
         setState(() {
-          _message = 'Nuovo codice richiesto. Controlla la tua email.';
+          _message = tr(
+            context,
+            'Nuovo codice richiesto. Controlla la tua email.',
+          );
         });
     } catch (error) {
       if (mounted)
@@ -324,7 +350,7 @@ class _AccountPageState extends State<AccountPage> with WidgetsBindingObserver {
     try {
       slot = _slot;
     } catch (_) {
-      setState(() => _message = 'Inserisci prima la tua email.');
+      setState(() => _message = tr(context, 'Inserisci prima la tua email.'));
       return;
     }
     final operation = ++_operation;
@@ -364,7 +390,10 @@ class _AccountPageState extends State<AccountPage> with WidgetsBindingObserver {
       }
       if (mounted && operation == _operation)
         setState(
-          () => _message = 'Sblocco biometrico non disponibile. Accedi con la Master Password e attivalo dalle impostazioni del vault.',
+          () => _message = tr(
+            context,
+            'Sblocco biometrico non disponibile. Accedi con la Master Password e attivalo dalle impostazioni del vault.',
+          ),
         );
     } finally {
       _nativePrompt = false;
@@ -381,14 +410,17 @@ class _AccountPageState extends State<AccountPage> with WidgetsBindingObserver {
     setState(() {
       _account = null;
       _busy = true;
-      _message = 'Vault bloccato.';
+      _message = tr(context, 'Vault bloccato.');
     });
     try {
       await _client.logout(account);
     } catch (_) {
       if (mounted)
         setState(() {
-          _message = 'Vault bloccato sul dispositivo. La chiusura della sessione sul server non è stata confermata.';
+          _message = tr(
+            context,
+            'Vault bloccato sul dispositivo. La chiusura della sessione sul server non è stata confermata.',
+          );
         });
     } finally {
       if (mounted)
@@ -437,7 +469,7 @@ class _AccountPageState extends State<AccountPage> with WidgetsBindingObserver {
         title: const ByteLockerTitle(),
         actions: [
           IconButton(
-            tooltip: 'Impostazioni',
+            tooltip: tr(context, 'Impostazioni'),
             onPressed: _busy
                 ? null
                 : () => setState(() => _showSettings = !_showSettings),
@@ -467,12 +499,12 @@ class _AccountPageState extends State<AccountPage> with WidgetsBindingObserver {
                         const SizedBox(height: 24),
                         Text(
                           _pending != null
-                              ? 'Conferma la tua email'
+                              ? tr(context, 'Conferma la tua email')
                               : _register
-                              ? 'Crea il tuo account'
+                              ? tr(context, 'Crea il tuo account')
                               : _linked != null
-                              ? 'Sblocca il vault'
-                              : 'Bentornato',
+                              ? tr(context, 'Sblocca il vault')
+                              : tr(context, 'Bentornato'),
                           style: Theme.of(context).textTheme.headlineMedium,
                         ),
                         const SizedBox(height: 12),
@@ -497,7 +529,7 @@ class _AccountPageState extends State<AccountPage> with WidgetsBindingObserver {
                           OutlinedButton.icon(
                             onPressed: _busy ? null : _biometricLogin,
                             icon: const Icon(Icons.fingerprint),
-                            label: const Text('Sblocca con biometria'),
+                            label: Text(tr(context, 'Sblocca con biometria')),
                           ),
                           const SizedBox(height: 16),
                         ],
@@ -509,13 +541,16 @@ class _AccountPageState extends State<AccountPage> with WidgetsBindingObserver {
                               if (_pending != null) ...[
                                 _field(
                                   _code,
-                                  'Codice email',
+                                  tr(context, 'Codice email'),
                                   keyboard: TextInputType.number,
                                   validator: (value) =>
                                       RegExp(r'^[0-9]{8}$')
                                           .hasMatch(value ?? '')
                                       ? null
-                                      : 'Inserisci le 8 cifre del codice',
+                                      : tr(
+                                          context,
+                                          'Inserisci le 8 cifre del codice',
+                                        ),
                                 ),
                               ] else ...[
                                 if (_linked == null || _register)
@@ -528,7 +563,10 @@ class _AccountPageState extends State<AccountPage> with WidgetsBindingObserver {
                                         normalizeEmail(value ?? '');
                                         return null;
                                       } on FormatException {
-                                        return 'Inserisci un’email valida';
+                                        return tr(
+                                          context,
+                                          'Inserisci un’email valida',
+                                        );
                                       }
                                     },
                                   ),
@@ -538,24 +576,30 @@ class _AccountPageState extends State<AccountPage> with WidgetsBindingObserver {
                                   secret: true,
                                   validator: (value) =>
                                       value == null || value.isEmpty
-                                      ? 'Inserisci la Master Password'
+                                      ? tr(
+                                          context,
+                                          'Inserisci la Master Password',
+                                        )
                                       : _register && value.runes.length < 12
-                                      ? 'Usa almeno 12 caratteri'
+                                      ? tr(context, 'Usa almeno 12 caratteri')
                                       : null,
                                 ),
                                 if (_register) ...[
                                   _field(
                                     _confirm,
-                                    'Conferma Master Password',
+                                    tr(context, 'Conferma Master Password'),
                                     secret: true,
                                     validator: (value) =>
                                         value == _password.text
                                         ? null
-                                        : 'Le password non coincidono',
+                                        : tr(
+                                            context,
+                                            'Le password non coincidono',
+                                          ),
                                   ),
                                   _field(
                                     _invite,
-                                    'Codice d’invito',
+                                    tr(context, 'Codice d’invito'),
                                     secret: true,
                                   ),
                                 ],
@@ -574,17 +618,19 @@ class _AccountPageState extends State<AccountPage> with WidgetsBindingObserver {
                                         )
                                       : Text(
                                           _pending != null
-                                              ? 'Verifica codice'
+                                              ? tr(context, 'Verifica codice')
                                               : _register
-                                              ? 'Crea account'
-                                              : 'Accedi e sblocca',
+                                              ? tr(context, 'Crea account')
+                                              : tr(context, 'Accedi e sblocca'),
                                         ),
                                 ),
                               ),
                               if (_pending != null)
                                 TextButton(
                                   onPressed: _busy ? null : _resend,
-                                  child: const Text('Richiedi un nuovo codice'),
+                                  child: Text(
+                                    tr(context, 'Richiedi un nuovo codice'),
+                                  ),
                                 )
                               else if (_linked == null &&
                                   widget.config.registrationAvailable)
@@ -601,8 +647,14 @@ class _AccountPageState extends State<AccountPage> with WidgetsBindingObserver {
                                         }),
                                   child: Text(
                                     _register
-                                        ? 'Hai già un account? Accedi'
-                                        : 'Prima volta? Crea un account',
+                                        ? tr(
+                                            context,
+                                            'Hai già un account? Accedi',
+                                          )
+                                        : tr(
+                                            context,
+                                            'Prima volta? Crea un account',
+                                          ),
                                   ),
                                 ),
                             ],
@@ -614,7 +666,7 @@ class _AccountPageState extends State<AccountPage> with WidgetsBindingObserver {
                                 ? null
                                 : widget.onChangeConnection ??
                                       () => Navigator.of(context).pop(),
-                            child: const Text('Cambia server o account'),
+                            child: Text(tr(context, 'Cambia server o account')),
                           ),
                         if (_message != null)
                           Padding(
@@ -625,8 +677,11 @@ class _AccountPageState extends State<AccountPage> with WidgetsBindingObserver {
                             ),
                           ),
                         const SizedBox(height: 24),
-                        const Text(
-                          'La Master Password resta sul dispositivo. Conservala con cura: l’email da sola non permette di recuperare il vault.',
+                        Text(
+                          tr(
+                            context,
+                            'La Master Password resta sul dispositivo. Conservala con cura: l’email da sola non permette di recuperare il vault.',
+                          ),
                           style: TextStyle(fontSize: 12, height: 1.5),
                         ),
                       ],

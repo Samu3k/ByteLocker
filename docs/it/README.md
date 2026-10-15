@@ -3,8 +3,8 @@
   <h1>ByteLocker</h1>
   <p><strong>Le tue password. Il tuo server.</strong></p>
   <p>Vault cifrato per Android e Windows, sul tuo server CasaOS / Docker.</p>
-  <p><a href="https://github.com/Samu3k/ByteLocker/releases/tag/v0.3.1">Scarica</a> · <a href="getting-started.md">Primo utilizzo</a> · <a href="self-hosting.md">Installa il server</a> · <a href="../../README.md">English</a></p>
-  <p><sub>Client 0.3.1 · Server 0.2.3 · Beta pubblica</sub></p>
+  <p><a href="https://github.com/Samu3k/ByteLocker/releases/tag/v0.3.2">Scarica</a> · <a href="getting-started.md">Primo utilizzo</a> · <a href="self-hosting.md">Installa il server</a> · <a href="../../README.md">English</a></p>
+  <p><sub>Client 0.3.2 · Server 0.2.3 · Beta pubblica</sub></p>
 </div>
 
 ![ByteLocker su Windows con dati di prova](../images/031-vault-desktop.png)
@@ -18,7 +18,7 @@
 
 ## Inizia qui
 
-Scarica il client dalle [Releases](https://github.com/Samu3k/ByteLocker/releases/tag/v0.3.1). Su Windows estrai tutto lo ZIP; su Android installa l'APK sopra la versione precedente.
+Scarica il client dalle [Releases](https://github.com/Samu3k/ByteLocker/releases/tag/v0.3.2). Su Windows estrai tutto lo ZIP; su Android installa l'APK sopra la versione precedente.
 
 **Hai un invito?** Inserisci l'indirizzo HTTPS ricevuto privatamente e crea il tuo account. [Guida →](getting-started.md)
 

@@ -80,7 +80,13 @@ class BiometricStore(private val activity: Activity) {
                     result.success(value?.let { json -> json.keys().asSequence().associateWith { json.get(it) } })
                 }
                 "saveLinkedAccount" -> { saveLinkedAccount(call.arguments); result.success(null) }
-                "status" -> result.success(mapOf("theme" to prefs.getString("theme", "dark"), "biometrics" to available(), "passkeys" to (Build.VERSION.SDK_INT >= 34)))
+                "status" -> result.success(mapOf("theme" to prefs.getString("theme", "dark"), "language" to prefs.getString("language", "it"), "biometrics" to available(), "passkeys" to (Build.VERSION.SDK_INT >= 34)))
+                "language" -> {
+                    val language = call.arguments as String
+                    require(language in listOf("it", "en", "system"))
+                    check(prefs.edit().putString("language", language).commit())
+                    result.success(null)
+                }
                 "theme" -> {
                     val theme = call.arguments as String
                     require(theme in listOf("dark", "light", "system"))
@@ -158,10 +164,12 @@ class BiometricStore(private val activity: Activity) {
         cancellation = signal
         var completed = false
         try {
-        val prompt = BiometricPrompt.Builder(activity).setTitle("Sblocca ByteLocker")
-            .setSubtitle("Autorizza l’accesso protetto su questo dispositivo")
+        val selectedLanguage = prefs.getString("language", "it")
+        val english = selectedLanguage == "en" || (selectedLanguage == "system" && java.util.Locale.getDefault().language == "en")
+        val prompt = BiometricPrompt.Builder(activity).setTitle(if (english) "Unlock ByteLocker" else "Sblocca ByteLocker")
+            .setSubtitle(if (english) "Authorize secure access on this device" else "Autorizza l’accesso protetto su questo dispositivo")
             .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
-            .setNegativeButton("Annulla", activity.mainExecutor) { _, _ -> signal.cancel() }.build()
+            .setNegativeButton(if (english) "Cancel" else "Annulla", activity.mainExecutor) { _, _ -> signal.cancel() }.build()
         prompt.authenticate(BiometricPrompt.CryptoObject(cipher), signal, activity.mainExecutor,
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(code: Int, message: CharSequence) {

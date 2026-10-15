@@ -1,3 +1,4 @@
+import '../l10n/app_strings.dart';
 import '../brand.dart';
 
 import 'dart:async';
@@ -56,7 +57,11 @@ class _ConnectionGateState extends State<ConnectionGate> {
         _config = config;
       }
     } catch (_) {
-      if (mounted) _error = 'Non riesco a verificare il server salvato. Controlla la connessione oppure aggiorna l’indirizzo del server.';
+      if (mounted)
+        _error = tr(
+          context,
+          'Non riesco a verificare il server salvato. Controlla la connessione oppure aggiorna l’indirizzo del server.',
+        );
     } finally {
       if (mounted) setState(() => _loading = false);
     }
@@ -93,11 +98,11 @@ class _ConnectionGateState extends State<ConnectionGate> {
                   const SizedBox(height: 24),
                   FilledButton(
                     onPressed: _restore,
-                    child: const Text('Riprova'),
+                    child: Text(tr(context, 'Riprova')),
                   ),
                   TextButton(
                     onPressed: _change,
-                    child: const Text('Cambia server o account'),
+                    child: Text(tr(context, 'Cambia server o account')),
                   ),
                 ],
               ),

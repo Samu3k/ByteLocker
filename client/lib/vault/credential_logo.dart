@@ -1,3 +1,5 @@
+import '../l10n/app_strings.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -188,7 +190,7 @@ class _BrandPickerState extends State<BrandPicker> {
               )
               .toList();
     return AlertDialog(
-      title: const Text('Scegli il logo'),
+      title: Text(tr(context, 'Scegli il logo')),
       content: SizedBox(
         width: 500,
         height: 420,
@@ -199,8 +201,8 @@ class _BrandPickerState extends State<BrandPicker> {
               autocorrect: false,
               enableSuggestions: false,
               onChanged: (_) => setState(() {}),
-              decoration: const InputDecoration(
-                labelText: 'Cerca un servizio',
+              decoration: InputDecoration(
+                labelText: tr(context, 'Cerca un servizio'),
                 prefixIcon: Icon(Icons.search),
               ),
             ),
@@ -226,15 +228,15 @@ class _BrandPickerState extends State<BrandPicker> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context, ''),
-          child: const Text('Automatico'),
+          child: Text(tr(context, 'Automatico')),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context, 'generic'),
-          child: const Text('Solo iniziale'),
+          child: Text(tr(context, 'Solo iniziale')),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Annulla'),
+          child: Text(tr(context, 'Annulla')),
         ),
       ],
     );

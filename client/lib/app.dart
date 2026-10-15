@@ -1,6 +1,8 @@
+import 'l10n/app_strings.dart';
 import 'brand.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'dart:async';
 
@@ -59,6 +61,14 @@ class _ByteLockerAppState extends State<ByteLockerApp> {
         title: 'ByteLocker',
         debugShowCheckedModeBanner: false,
         themeMode: _settings.mode,
+        locale: _settings.locale,
+        supportedLocales: AppStrings.supportedLocales,
+        localizationsDelegates: const [
+          AppStrings.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
         theme: ThemeData(
           useMaterial3: true,
           brightness: Brightness.light,
@@ -138,7 +148,10 @@ class _ServerConnectionPageState extends State<ServerConnectionPage> {
       ServerAddress.parse(value ?? '', allowLocalHttp: widget.allowLocalHttp);
       return null;
     } on FormatException {
-      return 'Inserisci un indirizzo HTTPS valido, senza percorsi o credenziali.';
+      return tr(
+        context,
+        'Inserisci un indirizzo HTTPS valido, senza percorsi o credenziali.',
+      );
     }
   }
 
@@ -169,7 +182,7 @@ class _ServerConnectionPageState extends State<ServerConnectionPage> {
     } catch (_) {
       if (!mounted) return;
       setState(() {
-        _failure = 'Impossibile completare il controllo. Riprova.';
+        _failure = tr(context, 'Impossibile completare il controllo. Riprova.');
       });
     } finally {
       if (mounted)
@@ -180,16 +193,30 @@ class _ServerConnectionPageState extends State<ServerConnectionPage> {
   }
 
   String _failureText(DiscoveryFailure failure) => switch (failure) {
-    DiscoveryFailure.unreachable =>
+    DiscoveryFailure.unreachable => tr(
+      context,
       'Server non raggiungibile. Controlla indirizzo e connessione.',
-    DiscoveryFailure.timeout =>
+    ),
+    DiscoveryFailure.timeout => tr(
+      context,
       'Il server impiega troppo tempo a rispondere. Riprova.',
-    DiscoveryFailure.certificate => 'Il certificato del server non è valido. Contatta chi gestisce il server.',
-    DiscoveryFailure.redirect => 'Questo indirizzo rimanda a un altro sito. Inserisci l’indirizzo diretto del server.',
-    DiscoveryFailure.incompatible =>
+    ),
+    DiscoveryFailure.certificate => tr(
+      context,
+      'Il certificato del server non è valido. Contatta chi gestisce il server.',
+    ),
+    DiscoveryFailure.redirect => tr(
+      context,
+      'Questo indirizzo rimanda a un altro sito. Inserisci l’indirizzo diretto del server.',
+    ),
+    DiscoveryFailure.incompatible => tr(
+      context,
       'Questa versione del server non è compatibile con l’app.',
-    DiscoveryFailure.malformed || DiscoveryFailure.response =>
+    ),
+    DiscoveryFailure.malformed || DiscoveryFailure.response => tr(
+      context,
       'La risposta non corrisponde a un server compatibile.',
+    ),
   };
 
   @override
@@ -199,7 +226,7 @@ class _ServerConnectionPageState extends State<ServerConnectionPage> {
       appBar: AppBar(
         actions: [
           IconButton(
-            tooltip: 'Impostazioni',
+            tooltip: tr(context, 'Impostazioni'),
             onPressed: () => setState(() => _settings = !_settings),
             icon: const Icon(Icons.settings_outlined),
           ),
@@ -266,7 +293,10 @@ class _ServerConnectionPageState extends State<ServerConnectionPage> {
                             ],
                             const SizedBox(height: 32),
                             Text(
-                              'Il codice d’invito serve solo per creare un nuovo account.',
+                              tr(
+                                context,
+                                'Il codice d’invito serve solo per creare un nuovo account.',
+                              ),
                               style: TextStyle(color: colors.onSurfaceVariant),
                             ),
                           ],
@@ -286,7 +316,7 @@ class _ServerConnectionPageState extends State<ServerConnectionPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'IL TUO SPAZIO PRIVATO',
+          tr(context, 'IL TUO SPAZIO PRIVATO'),
           style: TextStyle(
             color: colors.primary,
             fontWeight: FontWeight.w700,
@@ -295,8 +325,8 @@ class _ServerConnectionPageState extends State<ServerConnectionPage> {
           ),
         ),
         const SizedBox(height: 16),
-        const Text(
-          'Il tuo vault.\nSul tuo server.',
+        Text(
+          tr(context, 'Il tuo vault.\nSul tuo server.'),
           style: TextStyle(
             fontSize: 40,
             height: 1.15,
@@ -305,7 +335,10 @@ class _ServerConnectionPageState extends State<ServerConnectionPage> {
         ),
         const SizedBox(height: 20),
         Text(
-          'Comincia dall’indirizzo del server che ospiterà il tuo account.',
+          tr(
+            context,
+            'Comincia dall’indirizzo del server che ospiterà il tuo account.',
+          ),
           style: TextStyle(
             color: colors.onSurfaceVariant,
             fontSize: 17,
@@ -320,7 +353,10 @@ class _ServerConnectionPageState extends State<ServerConnectionPage> {
             const SizedBox(width: 10),
             Expanded(
               child: Text(
-                'Il controllo della connessione non invia password o codici d’invito.',
+                tr(
+                  context,
+                  'Il controllo della connessione non invia password o codici d’invito.',
+                ),
                 style: TextStyle(color: colors.onSurfaceVariant, height: 1.5),
               ),
             ),
@@ -344,13 +380,16 @@ class _ServerConnectionPageState extends State<ServerConnectionPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text(
-              'Collega il tuo server',
+            Text(
+              tr(context, 'Collega il tuo server'),
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
             Text(
-              'Usa l’indirizzo che hai configurato o ricevuto da chi ti ha invitato.',
+              tr(
+                context,
+                'Usa l’indirizzo che hai configurato o ricevuto da chi ti ha invitato.',
+              ),
               style: TextStyle(color: colors.onSurfaceVariant, height: 1.5),
             ),
             const SizedBox(height: 24),
@@ -363,8 +402,8 @@ class _ServerConnectionPageState extends State<ServerConnectionPage> {
               autocorrect: false,
               enableSuggestions: false,
               maxLength: 512,
-              decoration: const InputDecoration(
-                labelText: 'Indirizzo del server',
+              decoration: InputDecoration(
+                labelText: tr(context, 'Indirizzo del server'),
                 hintText: 'https://vault.example.com',
                 prefixIcon: Icon(Icons.dns_outlined),
                 counterText: '',
@@ -398,15 +437,17 @@ class _ServerConnectionPageState extends State<ServerConnectionPage> {
                     )
                   : Text(
                       _config == null
-                          ? 'Controlla server'
-                          : 'Controlla di nuovo',
+                          ? tr(context, 'Controlla server')
+                          : tr(context, 'Controlla di nuovo'),
                     ),
             ),
             if (_busy) ...[
               const SizedBox(height: 16),
               Semantics(
                 liveRegion: true,
-                child: const Text('Controllo della connessione in corso…'),
+                child: Text(
+                  tr(context, 'Controllo della connessione in corso…'),
+                ),
               ),
             ],
             if (_failure != null) ...[
@@ -432,9 +473,9 @@ class _ServerConnectionPageState extends State<ServerConnectionPage> {
                     color: colors.primary,
                   ),
                   const SizedBox(width: 10),
-                  const Expanded(
+                  Expanded(
                     child: Text(
-                      'Server disponibile',
+                      tr(context, 'Server disponibile'),
                       key: Key('connection-success'),
                       style: TextStyle(
                         fontSize: 18,
@@ -447,15 +488,24 @@ class _ServerConnectionPageState extends State<ServerConnectionPage> {
               const SizedBox(height: 12),
               Text(
                 _checkedAddress!.isSecure
-                    ? 'Connessione HTTPS verificata.'
-                    : 'Connessione locale di sviluppo, senza HTTPS.',
+                    ? tr(context, 'Connessione HTTPS verificata.')
+                    : tr(
+                        context,
+                        'Connessione locale di sviluppo, senza HTTPS.',
+                      ),
                 style: TextStyle(color: colors.onSurfaceVariant),
               ),
               const SizedBox(height: 8),
               Text(
                 _config!.registrationAvailable
-                    ? 'Il server consente la creazione di account con invito.'
-                    : 'La creazione di nuovi account non è disponibile su questo server.',
+                    ? tr(
+                        context,
+                        'Il server consente la creazione di account con invito.',
+                      )
+                    : tr(
+                        context,
+                        'La creazione di nuovi account non è disponibile su questo server.',
+                      ),
                 style: TextStyle(color: colors.onSurfaceVariant, height: 1.5),
               ),
               const SizedBox(height: 20),
@@ -469,7 +519,7 @@ class _ServerConnectionPageState extends State<ServerConnectionPage> {
                     ),
                   ),
                 ),
-                child: const Text('Continua'),
+                child: Text(tr(context, 'Continua')),
               ),
             ],
           ],

@@ -16,6 +16,54 @@ struct RegistryKey {
   ~RegistryKey() { if (handle) RegCloseKey(handle); }
 };
 
+std::string Preference(const wchar_t* name, const std::string& fallback) {
+  RegistryKey key;
+  if (RegOpenKeyExW(HKEY_CURRENT_USER, kPath, 0, KEY_QUERY_VALUE, &key.handle) != ERROR_SUCCESS) return fallback;
+  wchar_t value[16] = {};
+  DWORD type = 0, size = sizeof(value);
+  if (RegQueryValueExW(key.handle, name, nullptr, &type,
+      reinterpret_cast<BYTE*>(value), &size) != ERROR_SUCCESS || type != REG_SZ ||
+      size < sizeof(wchar_t) || size > sizeof(value) || size % sizeof(wchar_t) != 0 ||
+      value[size / sizeof(wchar_t) - 1] != L'\0') return fallback;
+  const std::wstring text(value);
+  std::string narrow;
+  for (const auto character : text) {
+    if (character > 0x7f) return fallback;
+    narrow.push_back(static_cast<char>(character));
+  }
+  return narrow;
+}
+
+bool IsLanguage(const std::string& value) { return value == "it" || value == "en" || value == "system"; }
+bool IsTheme(const std::string& value) { return value == "dark" || value == "light" || value == "system"; }
+
+void Settings(const flutter::MethodCall<Value>& call, Result& result) {
+  if (call.method_name() == "status") {
+    auto language = Preference(L"Language", "it");
+    auto theme = Preference(L"Theme", "dark");
+    result.Success(Value(flutter::EncodableMap{
+      {Value("language"), Value(IsLanguage(language) ? language : "it")},
+      {Value("theme"), Value(IsTheme(theme) ? theme : "dark")},
+      {Value("biometrics"), Value(false)}, {Value("passkeys"), Value(false)}
+    }));
+    return;
+  }
+  const auto* value = call.arguments() ? std::get_if<std::string>(call.arguments()) : nullptr;
+  const bool language = call.method_name() == "language";
+  if (!value || !(language ? IsLanguage(*value) : IsTheme(*value))) {
+    result.Error("settings_write", "Invalid preference."); return;
+  }
+  RegistryKey key;
+  const std::wstring wide(value->begin(), value->end());
+  auto status = RegCreateKeyExW(HKEY_CURRENT_USER, kPath, 0, nullptr,
+      REG_OPTION_NON_VOLATILE, KEY_SET_VALUE, nullptr, &key.handle, nullptr);
+  if (status == ERROR_SUCCESS) status = RegSetValueExW(key.handle, language ? L"Language" : L"Theme",
+      0, REG_SZ, reinterpret_cast<const BYTE*>(wide.c_str()),
+      static_cast<DWORD>((wide.size() + 1) * sizeof(wchar_t)));
+  if (status != ERROR_SUCCESS) { result.Error("settings_write", "Could not save preference."); return; }
+  result.Success();
+}
+
 void Read(Result& result) {
   RegistryKey key;
   LSTATUS status = RegOpenKeyExW(HKEY_CURRENT_USER, kPath, 0, KEY_QUERY_VALUE,
@@ -48,6 +96,9 @@ void Read(Result& result) {
 
 void HandleLinkedAccount(const flutter::MethodCall<Value>& call,
                          std::unique_ptr<Result> result) {
+  if (call.method_name() == "status" || call.method_name() == "theme" || call.method_name() == "language") {
+    Settings(call, *result); return;
+  }
   if (call.method_name() == "linkedAccount") { Read(*result); return; }
   if (call.method_name() != "saveLinkedAccount") {
     result->NotImplemented();

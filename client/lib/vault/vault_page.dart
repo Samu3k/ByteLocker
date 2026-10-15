@@ -1,3 +1,4 @@
+import '../l10n/app_strings.dart';
 import '../brand.dart';
 
 import 'dart:async';
@@ -82,7 +83,10 @@ class _VaultPageState extends State<VaultPage> {
           if (mounted)
             setState(() {
               _passkeyError = true;
-              _message = 'La richiesta passkey del sito o dell’app non può essere verificata da questa versione.';
+              _message = tr(
+                context,
+                'La richiesta passkey del sito o dell’app non può essere verificata da questa versione.',
+              );
             });
         }
       }),
@@ -147,10 +151,19 @@ class _VaultPageState extends State<VaultPage> {
       }
       setState(() {
         _message = error is AccountFailure && error.status == 412
-            ? 'La credenziale è stata modificata su un altro dispositivo. Aggiorna il vault e riapri la voce prima di salvarla.'
+            ? tr(
+                context,
+                'La credenziale è stata modificata su un altro dispositivo. Aggiorna il vault e riapri la voce prima di salvarla.',
+              )
             : widget.vault.hasPendingWrite
-            ? 'La scrittura non è confermata. Ripeti la stessa operazione con il pulsante qui sotto.'
-            : 'Operazione non completata. Aggiorna il vault e riprova; le modifiche nel modulo sono ancora qui.';
+            ? tr(
+                context,
+                'La scrittura non è confermata. Ripeti la stessa operazione con il pulsante qui sotto.',
+              )
+            : tr(
+                context,
+                'Operazione non completata. Aggiorna il vault e riprova; le modifiche nel modulo sono ancora qui.',
+              );
       });
     } finally {
       if (mounted)
@@ -243,8 +256,10 @@ class _VaultPageState extends State<VaultPage> {
     } on RecordFailure {
       if (mounted)
         setState(() {
-          _message =
-              'Un campo supera il limite consentito. Riduci il testo o i tag.';
+          _message = tr(
+            context,
+            'Un campo supera il limite consentito. Riduci il testo o i tag.',
+          );
         });
     }
   }
@@ -255,7 +270,9 @@ class _VaultPageState extends State<VaultPage> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          _editing == null ? 'Nuova credenziale' : 'Modifica credenziale',
+          _editing == null
+              ? tr(context, 'Nuova credenziale')
+              : tr(context, 'Modifica credenziale'),
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         const SizedBox(height: 24),
@@ -277,13 +294,13 @@ class _VaultPageState extends State<VaultPage> {
                     Expanded(
                       child: Text(
                         _formLogo == null
-                            ? 'Logo automatico dal sito'
+                            ? tr(context, 'Logo automatico dal sito')
                             : brandBySlug(_formLogo)?.name ??
                                   'Icona con iniziale',
                       ),
                     ),
                     IconButton(
-                      tooltip: 'Scegli il logo',
+                      tooltip: tr(context, 'Scegli il logo'),
                       onPressed: _busy ? null : _chooseLogo,
                       icon: const Icon(Icons.image_search_outlined),
                     ),
@@ -301,14 +318,14 @@ class _VaultPageState extends State<VaultPage> {
                       ? _formCategory
                       : '',
                   isExpanded: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Categoria',
+                  decoration: InputDecoration(
+                    labelText: tr(context, 'Categoria'),
                     prefixIcon: Icon(Icons.folder_outlined),
                   ),
                   items: [
-                    const DropdownMenuItem(
+                    DropdownMenuItem(
                       value: '',
-                      child: Text('Senza categoria'),
+                      child: Text(tr(context, 'Senza categoria')),
                     ),
                     for (final category in widget.vault.categories)
                       DropdownMenuItem(
@@ -333,12 +350,12 @@ class _VaultPageState extends State<VaultPage> {
                         ? null
                         : () => _createCategory(assign: true),
                     icon: const Icon(Icons.create_new_folder_outlined),
-                    label: const Text('Nuova categoria'),
+                    label: Text(tr(context, 'Nuova categoria')),
                   ),
                 ),
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: const Text('Preferito'),
+                  title: Text(tr(context, 'Preferito')),
                   secondary: Icon(
                     _formFavorite
                         ? Icons.star_rounded
@@ -374,17 +391,20 @@ class _VaultPageState extends State<VaultPage> {
                   : TextInputType.text,
               decoration: InputDecoration(
                 helperMaxLines: 3,
-                labelText: entry.key,
+                labelText: tr(context, entry.key),
                 helperText: entry.key == 'Tag'
-                    ? 'Separa i tag con una virgola'
+                    ? tr(context, 'Separa i tag con una virgola')
                     : entry.key == 'Segreto 2FA'
-                    ? 'Chiave di configurazione o link otpauth://. Lascia vuoto per rimuovere il 2FA salvato.'
+                    ? tr(
+                        context,
+                        'Chiave di configurazione o link otpauth://. Lascia vuoto per rimuovere il 2FA salvato.',
+                      )
                     : null,
                 suffixIcon: entry.key == 'Password'
                     ? IconButton(
                         tooltip: _showPassword
-                            ? 'Nascondi password'
-                            : 'Mostra password',
+                            ? tr(context, 'Nascondi password')
+                            : tr(context, 'Mostra password'),
                         onPressed: _busy
                             ? null
                             : () => setState(() {
@@ -400,7 +420,7 @@ class _VaultPageState extends State<VaultPage> {
               ),
               validator: entry.key == 'Titolo'
                   ? (value) => value == null || value.trim().isEmpty
-                        ? 'Inserisci un titolo'
+                        ? tr(context, 'Inserisci un titolo')
                         : null
                   : entry.key == 'Segreto 2FA'
                   ? (value) {
@@ -409,7 +429,10 @@ class _VaultPageState extends State<VaultPage> {
                         Totp.parse(value);
                         return null;
                       } on TotpFailure {
-                        return 'Usa una chiave Base32 o TOTP SHA-1, 6 cifre, 30 secondi.';
+                        return tr(
+                          context,
+                          'Usa una chiave Base32 o TOTP SHA-1, 6 cifre, 30 secondi.',
+                        );
                       }
                     }
                   : null,
@@ -438,24 +461,30 @@ class _VaultPageState extends State<VaultPage> {
             icon: const Icon(Icons.key_off_outlined),
             label: Text(
               _confirmRemovePasskey
-                  ? 'Conferma rimozione dal vault'
-                  : 'Rimuovi passkey dalla credenziale',
+                  ? tr(context, 'Conferma rimozione dal vault')
+                  : tr(context, 'Rimuovi passkey dalla credenziale'),
             ),
           ),
         ] else
           Text(
             _removePasskey
-                ? 'La passkey sarà rimossa al salvataggio. Per revocarla sul sito, usa anche le impostazioni del sito.'
-                : 'Crea la passkey dalle impostazioni di sicurezza del sito o dell’app e scegli ByteLocker come gestore.',
+                ? tr(
+                    context,
+                    'La passkey sarà rimossa al salvataggio. Per revocarla sul sito, usa anche le impostazioni del sito.',
+                  )
+                : tr(
+                    context,
+                    'Crea la passkey dalle impostazioni di sicurezza del sito o dell’app e scegli ByteLocker come gestore.',
+                  ),
           ),
         const SizedBox(height: 24),
         FilledButton(
           onPressed: _busy || !widget.vault.ready ? null : _save,
-          child: const Text('Salva credenziale'),
+          child: Text(tr(context, 'Salva credenziale')),
         ),
         TextButton(
           onPressed: _busy ? null : _clearEditor,
-          child: const Text('Chiudi senza salvare'),
+          child: Text(tr(context, 'Chiudi senza salvare')),
         ),
         if (_editing != null) ...[
           const Divider(),
@@ -478,12 +507,17 @@ class _VaultPageState extends State<VaultPage> {
                   },
             icon: const Icon(Icons.delete_outline),
             label: Text(
-              _confirmDelete ? 'Conferma eliminazione' : 'Elimina credenziale',
+              _confirmDelete
+                  ? tr(context, 'Conferma eliminazione')
+                  : tr(context, 'Elimina credenziale'),
             ),
           ),
           if (_confirmDelete)
-            const Text(
-              'La voce sarà rimossa dall’elenco. La cancellazione viene salvata cifrata sul server.',
+            Text(
+              tr(
+                context,
+                'La voce sarà rimossa dall’elenco. La cancellazione viene salvata cifrata sul server.',
+              ),
             ),
         ],
       ],
@@ -518,7 +552,10 @@ class _VaultPageState extends State<VaultPage> {
     if (widget.vault.categories.any(
       (item) => item.record.title.toLowerCase() == name.toLowerCase(),
     )) {
-      setState(() => _message = 'Esiste già una categoria con questo nome.');
+      setState(
+        () =>
+            _message = tr(context, 'Esiste già una categoria con questo nome.'),
+      );
       return;
     }
     await _run(
@@ -545,7 +582,10 @@ class _VaultPageState extends State<VaultPage> {
           item.id.wire != category.id.wire &&
           item.record.title.toLowerCase() == name.toLowerCase(),
     )) {
-      setState(() => _message = 'Esiste già una categoria con questo nome.');
+      setState(
+        () =>
+            _message = tr(context, 'Esiste già una categoria con questo nome.'),
+      );
       return;
     }
     await _run(
@@ -563,7 +603,7 @@ class _VaultPageState extends State<VaultPage> {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('$label: copiato negli appunti'),
+            content: Text(AppStrings.of(context).copied(label)),
             duration: const Duration(seconds: 2),
           ),
         );
@@ -571,7 +611,10 @@ class _VaultPageState extends State<VaultPage> {
     } catch (_) {
       if (mounted)
         setState(
-          () => _message = 'Impossibile copiare negli appunti. Riprova.',
+          () => _message = tr(
+            context,
+            'Impossibile copiare negli appunti. Riprova.',
+          ),
         );
     }
   }
@@ -591,15 +634,17 @@ class _VaultPageState extends State<VaultPage> {
 
   String _categoryName(String? id) {
     final matches = widget.vault.categories.where((item) => item.id.wire == id);
-    return matches.isEmpty ? 'Senza categoria' : matches.first.record.title;
+    return matches.isEmpty
+        ? tr(context, 'Senza categoria')
+        : matches.first.record.title;
   }
 
   String get _sectionTitle => switch (_section) {
-    'favorites' => 'Preferiti',
-    'uncategorized' => 'Senza categoria',
+    'favorites' => tr(context, 'Preferiti'),
+    'uncategorized' => tr(context, 'Senza categoria'),
     'category' => _categoryName(_selectedCategory),
     'tag' => 'Tag: $_selectedTag',
-    _ => 'Il tuo vault',
+    _ => tr(context, 'Il tuo vault'),
   };
   bool _inSection(VaultEntry entry) => switch (_section) {
     'favorites' => entry.record.favorite,
@@ -652,10 +697,10 @@ class _VaultPageState extends State<VaultPage> {
     return ListView(
       padding: const EdgeInsets.all(12),
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.fromLTRB(16, 20, 16, 20),
           child: Text(
-            'IL TUO SPAZIO',
+            tr(context, 'IL TUO SPAZIO'),
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w700,
@@ -664,19 +709,19 @@ class _VaultPageState extends State<VaultPage> {
           ),
         ),
         item(
-          'Tutti i login',
+          tr(context, 'Tutti i login'),
           Icons.grid_view_rounded,
           'all',
           widget.vault.entries.length,
         ),
         item(
-          'Preferiti',
+          tr(context, 'Preferiti'),
           Icons.star_outline_rounded,
           'favorites',
           widget.vault.entries.where((entry) => entry.record.favorite).length,
         ),
         item(
-          'Senza categoria',
+          tr(context, 'Senza categoria'),
           Icons.folder_off_outlined,
           'uncategorized',
           widget.vault.entries
@@ -690,17 +735,17 @@ class _VaultPageState extends State<VaultPage> {
         const Divider(height: 32),
         Row(
           children: [
-            const Expanded(
+            Expanded(
               child: Padding(
                 padding: EdgeInsets.only(left: 16),
                 child: Text(
-                  'Categorie',
+                  tr(context, 'Categorie'),
                   style: TextStyle(fontWeight: FontWeight.w700),
                 ),
               ),
             ),
             IconButton(
-              tooltip: 'Nuova categoria',
+              tooltip: tr(context, 'Nuova categoria'),
               onPressed: _busy || !widget.vault.ready || _passkeyRequest != null
                   ? null
                   : () => _createCategory(),
@@ -709,10 +754,10 @@ class _VaultPageState extends State<VaultPage> {
           ],
         ),
         if (widget.vault.categories.isEmpty)
-          const Padding(
+          Padding(
             padding: EdgeInsets.all(16),
             child: Text(
-              'Crea categorie come Personale o Lavoro.',
+              tr(context, 'Crea categorie come Personale o Lavoro.'),
               style: TextStyle(fontSize: 12),
             ),
           ),
@@ -733,7 +778,8 @@ class _VaultPageState extends State<VaultPage> {
                 ),
               ),
               IconButton(
-                tooltip: 'Rinomina categoria ${category.record.title}',
+                tooltip: AppStrings.of(context)
+                    .renameCategory(category.record.title),
                 onPressed: _busy || _passkeyRequest != null
                     ? null
                     : () => _renameCategory(category),
@@ -747,10 +793,10 @@ class _VaultPageState extends State<VaultPage> {
           child: Text('Tag', style: TextStyle(fontWeight: FontWeight.w700)),
         ),
         if (tags.isEmpty)
-          const Padding(
+          Padding(
             padding: EdgeInsets.all(16),
             child: Text(
-              'Aggiungi tag quando modifichi un login.',
+              tr(context, 'Aggiungi tag quando modifichi un login.'),
               style: TextStyle(fontSize: 12),
             ),
           ),
@@ -781,7 +827,7 @@ class _VaultPageState extends State<VaultPage> {
                 Expanded(child: SelectableText(value)),
                 if (copy)
                   IconButton(
-                    tooltip: 'Copia ${label.toLowerCase()}',
+                    tooltip: AppStrings.of(context).copy(label.toLowerCase()),
                     icon: const Icon(Icons.copy_rounded),
                     onPressed: () => _copy(value, label),
                   ),
@@ -802,12 +848,12 @@ class _VaultPageState extends State<VaultPage> {
           child: TextButton.icon(
             onPressed: _clearEditor,
             icon: const Icon(Icons.arrow_back),
-            label: const Text('Torna al vault'),
+            label: Text(tr(context, 'Torna al vault')),
           ),
         ),
         const SizedBox(height: 12),
         Text(
-          'Dettagli credenziale',
+          tr(context, 'Dettagli credenziale'),
           style: Theme.of(context).textTheme.bodySmall,
         ),
         const SizedBox(height: 12),
@@ -823,8 +869,8 @@ class _VaultPageState extends State<VaultPage> {
             ),
             IconButton(
               tooltip: record.favorite
-                  ? 'Rimuovi dai preferiti'
-                  : 'Aggiungi ai preferiti',
+                  ? tr(context, 'Rimuovi dai preferiti')
+                  : tr(context, 'Aggiungi ai preferiti'),
               onPressed: _busy ? null : () => _toggleFavorite(entry),
               icon: Icon(
                 record.favorite
@@ -834,7 +880,7 @@ class _VaultPageState extends State<VaultPage> {
               ),
             ),
             IconButton(
-              tooltip: 'Modifica credenziale',
+              tooltip: tr(context, 'Modifica credenziale'),
               onPressed: _busy ? null : () => _edit(entry),
               icon: const Icon(Icons.edit_outlined),
             ),
@@ -842,7 +888,10 @@ class _VaultPageState extends State<VaultPage> {
         ),
         const SizedBox(height: 28),
         if (record.categoryId != null)
-          _detailField('Categoria', _categoryName(record.categoryId)),
+          _detailField(
+            tr(context, 'Categoria'),
+            _categoryName(record.categoryId),
+          ),
         if (record.username.isNotEmpty)
           _detailField('Username', record.username, copy: true),
         if (record.email.isNotEmpty)
@@ -854,7 +903,7 @@ class _VaultPageState extends State<VaultPage> {
               child: SelectableText(
                 enableInteractiveSelection: false,
                 record.password.isEmpty
-                    ? 'Non impostata'
+                    ? tr(context, 'Non impostata')
                     : _showPassword
                     ? record.password
                     : '••••••••',
@@ -863,15 +912,15 @@ class _VaultPageState extends State<VaultPage> {
             ),
             if (record.password.isNotEmpty)
               IconButton(
-                tooltip: 'Copia password',
+                tooltip: tr(context, 'Copia password'),
                 icon: const Icon(Icons.copy_rounded),
                 onPressed: () => _copy(record.password, 'Password'),
               ),
             if (record.password.isNotEmpty)
               IconButton(
                 tooltip: _showPassword
-                    ? 'Nascondi password'
-                    : 'Mostra password',
+                    ? tr(context, 'Nascondi password')
+                    : tr(context, 'Mostra password'),
                 onPressed: () => setState(() => _showPassword = !_showPassword),
                 icon: Icon(
                   _showPassword
@@ -883,12 +932,16 @@ class _VaultPageState extends State<VaultPage> {
         ),
         const SizedBox(height: 20),
         if (record.url.isNotEmpty) _detailField('URL', record.url, copy: true),
-        if (record.notes.isNotEmpty) _detailField('Note', record.notes),
+        if (record.notes.isNotEmpty)
+          _detailField(tr(context, 'Note'), record.notes),
         if (record.tags.isNotEmpty) _detailField('Tag', record.tags.join(', ')),
         if (record.totp != null) TotpCode(input: record.totp!.secret),
         if (record.passkey != null) ...[
           _detailField('Passkey', record.passkey!.rpId),
-          _detailField('Account passkey', record.passkey!.userName),
+          _detailField(
+            tr(context, 'Account passkey'),
+            record.passkey!.userName,
+          ),
         ],
       ],
     );
@@ -906,7 +959,7 @@ class _VaultPageState extends State<VaultPage> {
         Text(_sectionTitle, style: Theme.of(context).textTheme.headlineMedium),
         const SizedBox(height: 8),
         Text(
-          '${entries.length} credenziali',
+          AppStrings.of(context).credentials(entries.length),
           style: Theme.of(context).textTheme.bodySmall,
         ),
         const SizedBox(height: 24),
@@ -915,8 +968,8 @@ class _VaultPageState extends State<VaultPage> {
           enableSuggestions: false,
           controller: _search,
           onChanged: (_) => setState(() {}),
-          decoration: const InputDecoration(
-            labelText: 'Cerca per titolo, account, sito o tag',
+          decoration: InputDecoration(
+            labelText: tr(context, 'Cerca per titolo, account, sito o tag'),
             prefixIcon: Icon(Icons.search),
           ),
         ),
@@ -924,7 +977,7 @@ class _VaultPageState extends State<VaultPage> {
         FilledButton.icon(
           onPressed: _busy || !widget.vault.ready ? null : () => _edit(),
           icon: const Icon(Icons.add),
-          label: const Text('Nuova credenziale'),
+          label: Text(tr(context, 'Nuova credenziale')),
         ),
         const SizedBox(height: 24),
         if (entries.isEmpty && !_busy)
@@ -932,8 +985,11 @@ class _VaultPageState extends State<VaultPage> {
             padding: const EdgeInsets.symmetric(vertical: 32),
             child: Text(
               widget.vault.entries.isEmpty
-                  ? 'Il vault è vuoto. Aggiungi la tua prima credenziale.'
-                  : 'Nessuna credenziale trovata.',
+                  ? tr(
+                      context,
+                      'Il vault è vuoto. Aggiungi la tua prima credenziale.',
+                    )
+                  : tr(context, 'Nessuna credenziale trovata.'),
               textAlign: TextAlign.center,
             ),
           ),
@@ -952,8 +1008,8 @@ class _VaultPageState extends State<VaultPage> {
                 children: [
                   IconButton(
                     tooltip: entry.record.favorite
-                        ? 'Rimuovi dai preferiti'
-                        : 'Aggiungi ai preferiti',
+                        ? tr(context, 'Rimuovi dai preferiti')
+                        : tr(context, 'Aggiungi ai preferiti'),
                     onPressed: _busy || !widget.vault.ready
                         ? null
                         : () => _toggleFavorite(entry),
@@ -966,7 +1022,7 @@ class _VaultPageState extends State<VaultPage> {
                   ),
                   IconButton(
                     key: ValueKey('edit-${entry.id.wire}'),
-                    tooltip: 'Modifica credenziale',
+                    tooltip: tr(context, 'Modifica credenziale'),
                     icon: const Icon(Icons.edit_outlined),
                     onPressed: _busy || !widget.vault.ready
                         ? null
@@ -994,7 +1050,7 @@ class _VaultPageState extends State<VaultPage> {
           leading: wide
               ? null
               : IconButton(
-                  tooltip: 'Categorie e preferiti',
+                  tooltip: tr(context, 'Categorie e preferiti'),
                   onPressed: () => _scaffold.currentState?.openDrawer(),
                   icon: const Icon(Icons.menu_rounded),
                 ),
@@ -1002,7 +1058,7 @@ class _VaultPageState extends State<VaultPage> {
           automaticallyImplyLeading: false,
           actions: [
             IconButton(
-              tooltip: 'Impostazioni',
+              tooltip: tr(context, 'Impostazioni'),
               onPressed: _busy || _passkeyRequest != null
                   ? null
                   : () {
@@ -1012,7 +1068,7 @@ class _VaultPageState extends State<VaultPage> {
               icon: const Icon(Icons.settings_outlined),
             ),
             IconButton(
-              tooltip: 'Aggiorna vault',
+              tooltip: tr(context, 'Aggiorna vault'),
               onPressed: _busy || _passkeyRequest != null
                   ? null
                   : () => unawaited(
@@ -1021,7 +1077,7 @@ class _VaultPageState extends State<VaultPage> {
               icon: const Icon(Icons.sync),
             ),
             IconButton(
-              tooltip: 'Blocca ed esci',
+              tooltip: tr(context, 'Blocca ed esci'),
               onPressed: () => unawaited(widget.onLogout()),
               icon: const Icon(Icons.lock_outline),
             ),
@@ -1062,12 +1118,17 @@ class _VaultPageState extends State<VaultPage> {
                                     setState(() => _passkeyError = false);
                                 }),
                               ),
-                              child: const Text('Annulla richiesta passkey'),
+                              child: Text(
+                                tr(context, 'Annulla richiesta passkey'),
+                              ),
                             ),
                           if (widget.vault.hasPendingWrite &&
                               _passkeyRequest == null) ...[
-                            const Text(
-                              'Una scrittura cifrata è in attesa di conferma. Non chiudere l’app se vuoi conservarne il tentativo.',
+                            Text(
+                              tr(
+                                context,
+                                'Una scrittura cifrata è in attesa di conferma. Non chiudere l’app se vuoi conservarne il tentativo.',
+                              ),
                             ),
                             TextButton(
                               onPressed: _busy
@@ -1078,7 +1139,9 @@ class _VaultPageState extends State<VaultPage> {
                                         closeEditor: true,
                                       ),
                                     ),
-                              child: const Text('Ripeti operazione in attesa'),
+                              child: Text(
+                                tr(context, 'Ripeti operazione in attesa'),
+                              ),
                             ),
                           ],
                           const SizedBox(height: 12),
@@ -1102,8 +1165,11 @@ class _VaultPageState extends State<VaultPage> {
                               ? _detailView(_viewing!)
                               : _listView(),
                           const SizedBox(height: 24),
-                          const Text(
-                            'I contenuti sono cifrati sul dispositivo prima dell’invio.',
+                          Text(
+                            tr(
+                              context,
+                              'I contenuti sono cifrati sul dispositivo prima dell’invio.',
+                            ),
                             style: TextStyle(fontSize: 12),
                           ),
                         ],
@@ -1145,7 +1211,9 @@ class _CategoryDialogState extends State<_CategoryDialog> {
   @override
   Widget build(BuildContext context) => AlertDialog(
     title: Text(
-      widget.initial.isEmpty ? 'Nuova categoria' : 'Rinomina categoria',
+      widget.initial.isEmpty
+          ? tr(context, 'Nuova categoria')
+          : tr(context, 'Rinomina categoria'),
     ),
     content: Form(
       key: _form,
@@ -1155,9 +1223,9 @@ class _CategoryDialogState extends State<_CategoryDialog> {
         autofocus: true,
         autocorrect: false,
         enableSuggestions: false,
-        decoration: const InputDecoration(
-          labelText: 'Nome',
-          hintText: 'Per esempio: Lavoro',
+        decoration: InputDecoration(
+          labelText: tr(context, 'Nome'),
+          hintText: tr(context, 'Per esempio: Lavoro'),
         ),
         onFieldSubmitted: (_) => _save(),
         validator: (value) {
@@ -1165,7 +1233,7 @@ class _CategoryDialogState extends State<_CategoryDialog> {
             VaultRecord(title: (value ?? '').trim(), isCategory: true);
             return null;
           } on RecordFailure {
-            return 'Inserisci un nome breve, massimo 200 byte.';
+            return tr(context, 'Inserisci un nome breve, massimo 200 byte.');
           }
         },
       ),
@@ -1173,9 +1241,12 @@ class _CategoryDialogState extends State<_CategoryDialog> {
     actions: [
       TextButton(
         onPressed: () => Navigator.pop(context),
-        child: const Text('Annulla'),
+        child: Text(tr(context, 'Annulla')),
       ),
-      FilledButton(onPressed: _save, child: const Text('Salva categoria')),
+      FilledButton(
+        onPressed: _save,
+        child: Text(tr(context, 'Salva categoria')),
+      ),
     ],
   );
 }

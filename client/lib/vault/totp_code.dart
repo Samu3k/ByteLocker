@@ -1,3 +1,5 @@
+import '../l10n/app_strings.dart';
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -36,16 +38,18 @@ class _TotpCodeState extends State<TotpCode> {
       if (!mounted || revision != _revision) return;
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Codice 2FA copiato'),
+        SnackBar(
+          content: Text(tr(context, 'Codice 2FA copiato')),
           duration: Duration(seconds: 2),
         ),
       );
     } catch (_) {
       if (mounted)
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Impossibile copiare il codice 2FA. Riprova.'),
+          SnackBar(
+            content: Text(
+              tr(context, 'Impossibile copiare il codice 2FA. Riprova.'),
+            ),
           ),
         );
     }
@@ -122,13 +126,16 @@ class _TotpCodeState extends State<TotpCode> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 24),
       child: _invalid
-          ? const Text(
-              'Configurazione 2FA non valida. Usa TOTP SHA-1, 6 cifre e 30 secondi.',
+          ? Text(
+              tr(
+                context,
+                'Configurazione 2FA non valida. Usa TOTP SHA-1, 6 cifre e 30 secondi.',
+              ),
             )
           : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Codice 2FA'),
+                Text(tr(context, 'Codice 2FA')),
                 Row(
                   children: [
                     Expanded(
@@ -138,14 +145,19 @@ class _TotpCodeState extends State<TotpCode> {
                       ),
                     ),
                     IconButton(
-                      tooltip: 'Copia codice 2FA',
+                      tooltip: tr(context, 'Copia codice 2FA'),
                       onPressed: _code == null ? null : _copy,
                       icon: const Icon(Icons.copy_rounded),
                     ),
                   ],
                 ),
-                Text('Nuovo codice tra $_remaining secondi'),
-                const Text('Mantieni data e ora automatiche sul dispositivo.'),
+                Text(AppStrings.of(context).nextCode(_remaining)),
+                Text(
+                  tr(
+                    context,
+                    'Mantieni data e ora automatiche sul dispositivo.',
+                  ),
+                ),
               ],
             ),
     );

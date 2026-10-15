@@ -9,17 +9,24 @@ import 'package:password_manager/settings/client_settings.dart';
 
 class FakeSecurity extends NativeSecurity {
   String savedTheme = 'dark';
+  String savedLanguage = 'it';
   bool enrolledValue = false;
   Uint8List? sealed;
   @override
   Future<Map<Object?, Object?>> status() async => {
     'theme': savedTheme,
+    'language': savedLanguage,
     'biometrics': true,
     'passkeys': true,
   };
   @override
   Future<void> theme(String value) async {
     savedTheme = value;
+  }
+
+  @override
+  Future<void> language(String value) async {
+    savedLanguage = value;
   }
 
   @override
@@ -42,6 +49,56 @@ class FakeSecurity extends NativeSecurity {
 }
 
 void main() {
+  testWidgets('language switches immediately and survives settings reload', (
+    tester,
+  ) async {
+    final native = FakeSecurity();
+    final settings = ClientSettings(native: native);
+    addTearDown(settings.dispose);
+    await tester.binding.setSurfaceSize(const Size(390, 844));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(
+      ByteLockerApp(linkedStore: const DisabledLinks(), settings: settings),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Impostazioni'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byType(DropdownButtonFormField<String>));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('English').last);
+    await tester.pumpAndSettle();
+    expect(native.savedLanguage, 'en');
+    expect(find.text('Settings'), findsOneWidget);
+    expect(find.text('Language'), findsOneWidget);
+    expect(find.text('Theme'), findsOneWidget);
+    final reloaded = ClientSettings(native: native);
+    await reloaded.load();
+    expect(reloaded.locale, const Locale('en'));
+    reloaded.dispose();
+    await settings.changeLanguage('system');
+    await tester.pumpAndSettle();
+    expect(settings.locale, isNull);
+    expect(native.savedLanguage, 'system');
+    expect(tester.takeException(), isNull);
+    await tester.pumpWidget(const SizedBox());
+  });
+
+  test(
+    'unknown saved language falls back without affecting security capabilities',
+    () async {
+      final native = FakeSecurity()..savedLanguage = 'unsupported';
+      final settings = ClientSettings(native: native);
+      await settings.load();
+      expect(settings.language, 'it');
+      expect(settings.biometricsAvailable, isTrue);
+      await expectLater(
+        settings.changeLanguage('unsupported'),
+        throwsArgumentError,
+      );
+      expect(native.savedLanguage, 'unsupported');
+      settings.dispose();
+    },
+  );
   testWidgets('mobile settings change theme and retain native preference', (
     tester,
   ) async {

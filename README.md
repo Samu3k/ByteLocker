@@ -4,19 +4,20 @@
   <p><strong>Your passwords. Your server.</strong></p>
   <p>An encrypted vault for Android and Windows, hosted on your own CasaOS / Docker server.</p>
   <p>
-    <a href="https://github.com/Samu3k/ByteLocker/releases/tag/v0.3.1"><strong>Download</strong></a> ·
+    <a href="https://github.com/Samu3k/ByteLocker/releases/tag/v0.3.2"><strong>Download</strong></a> ·
     <a href="docs/getting-started.md">Getting started</a> ·
     <a href="docs/self-hosting.md">Self-hosting</a> ·
     <a href="docs/it/README.md">Italiano</a>
   </p>
   <p><a href="https://github.com/Samu3k/ByteLocker/actions/workflows/checks.yml"><img src="https://github.com/Samu3k/ByteLocker/actions/workflows/checks.yml/badge.svg" alt="Source checks" /></a></p>
-  <p><sub>Clients 0.3.1 · Server 0.2.3 · Public beta</sub></p>
+  <p><sub>Clients 0.3.2 · Server 0.2.3 · Public beta</sub></p>
 </div>
 
 ![ByteLocker on Windows, showing sample data](docs/images/031-vault-desktop.png)
 
 ## A vault that feels at home
 
+- **Choose your language** — Italian, English or your device language, saved in Settings.
 - **Stay organized** — categories, favorites, tags and over 3,300 bundled brand icons.
 - **Copy in a tap** — usernames, emails, passwords and live 2FA codes.
 - **Unlock your way** — Master Password, optional Android biometrics and Android passkey provider support.
@@ -36,9 +37,9 @@
 
 | Platform | Download | Start here |
 | --- | --- | --- |
-| Android ARM64 | [APK](https://github.com/Samu3k/ByteLocker/releases/download/v0.3.1/ByteLocker-0.3.1-android-arm64.apk) | Install over the previous version. |
-| Windows x64 | [ZIP](https://github.com/Samu3k/ByteLocker/releases/download/v0.3.1/ByteLocker-Windows-0.3.1.zip) | Extract the whole folder and run ByteLocker.exe. |
-| CasaOS / Linux x86_64 | [Server package](https://github.com/Samu3k/ByteLocker/releases/download/v0.3.1/bytelocker-casaos-0.2.3.zip) | Follow the [server guide](docs/self-hosting.md). |
+| Android ARM64 | [APK](https://github.com/Samu3k/ByteLocker/releases/download/v0.3.2/ByteLocker-0.3.2-android-arm64.apk) | Install over the previous version. |
+| Windows x64 | [ZIP](https://github.com/Samu3k/ByteLocker/releases/download/v0.3.2/ByteLocker-Windows-0.3.2.zip) | Extract the whole folder and run ByteLocker.exe. |
+| CasaOS / Linux x86_64 | [Server package](https://github.com/Samu3k/ByteLocker/releases/download/v0.3.2/bytelocker-casaos-0.2.3.zip) | Follow the [server guide](docs/self-hosting.md). |
 
 **Invited by a friend?** Install a client, enter the HTTPS server address and use your personal invitation. [Quick start →](docs/getting-started.md)
 
