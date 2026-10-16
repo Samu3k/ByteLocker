@@ -13,7 +13,7 @@
   <p><sub>Clients 0.3.2 · Server 0.2.3 · Public beta</sub></p>
 </div>
 
-![ByteLocker on Windows, showing sample data](docs/images/031-vault-desktop.png)
+![ByteLocker on Windows, showing sample data](docs/images/032-en-vault-desktop.png)
 
 ## A vault that feels at home
 
@@ -27,9 +27,9 @@
 <summary><strong>Take a look at Android</strong></summary>
 <br />
 <p align="center">
-  <img src="docs/images/031-credential-mobile.png" alt="Android credential details" width="250" />
+  <img src="docs/images/032-en-credential-mobile.png" alt="Android credential details" width="250" />
   &nbsp;&nbsp;
-  <img src="docs/images/031-navigation-mobile.png" alt="Android categories and favorites" width="250" />
+  <img src="docs/images/032-en-navigation-mobile.png" alt="Android categories and favorites" width="250" />
 </p>
 </details>
 
@@ -53,6 +53,6 @@ Vault contents are encrypted on the client with Argon2id and AES-256-GCM. Your M
 
 ## Explore
 
-[User guide](docs/getting-started.md) · [Self-hosting](docs/self-hosting.md) · [Client builds](client/README.md) · [Contributing](.github/CONTRIBUTING.md) · [Security](.github/SECURITY.md) · [All documentation](docs/README.md)
+[User guide](docs/getting-started.md) · [Self-hosting](docs/self-hosting.md) · [CasaOS commands (Italiano)](docs/it/casaos-commands.md) · [Client builds](client/README.md) · [Contributing](.github/CONTRIBUTING.md) · [Security](.github/SECURITY.md) · [All documentation](docs/README.md)
 
 <sub>Screenshots use sample data. Brand logos belong to their respective owners. ByteLocker code is licensed under <a href="LICENSE">GPL-3.0-only</a>, copyright © 2026 Samu3k. Third-party assets and dependencies retain their own licenses and notices in client/third_party and maintenance/third_party.</sub>

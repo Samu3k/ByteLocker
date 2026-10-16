@@ -7,7 +7,7 @@
   <p><sub>Client 0.3.2 · Server 0.2.3 · Beta pubblica</sub></p>
 </div>
 
-![ByteLocker su Windows con dati di prova](../images/031-vault-desktop.png)
+![ByteLocker su Windows con dati di prova](../images/032-en-vault-desktop.png)
 
 ## Tutto a portata di mano
 
@@ -34,4 +34,4 @@ Il vault viene cifrato sul dispositivo con Argon2id e AES-256-GCM. Master Passwo
 
 Codice ByteLocker sotto [GPL-3.0-only](../../LICENSE), copyright © 2026 Samu3k. Le dipendenze e i loghi mantengono le proprie licenze.
 
-[Documentazione](../README.md) · [Sicurezza](../../.github/SECURITY.md) · [Contribuire](../../.github/CONTRIBUTING.md)
+[Comandi CasaOS](casaos-commands.md) · [Documentazione](../README.md) · [Sicurezza](../../.github/SECURITY.md) · [Contribuire](../../.github/CONTRIBUTING.md)

@@ -12,7 +12,7 @@
 
 ## Italiano
 
-[Panoramica](it/README.md) · [Primo utilizzo](it/getting-started.md) · [Self-hosting](it/self-hosting.md)
+[Panoramica](it/README.md) · [Primo utilizzo](it/getting-started.md) · [Self-hosting](it/self-hosting.md) · [Comandi CasaOS](it/casaos-commands.md)
 
 ## Detailed references · currently Italian
 
