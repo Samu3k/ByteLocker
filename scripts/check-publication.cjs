@@ -9,10 +9,10 @@ function inspect(name, bytes) {
   const findings = [];
   const file = name.replaceAll('\\', '/');
   const base = path.posix.basename(file);
-  if (/(^|\/)(data|secrets|backups|build|dist|releases|\.git|\.dart_tool|\.gradle|\.cxx|ephemeral)(\/|$)/i.test(file) ||
+  if (/(^|\/)(data|secrets|backups|build|dist|releases|\.git|\.dart_tool|\.gradle|\.cxx|ephemeral|__pycache__)(\/|$)/i.test(file) ||
       (/^\.env(?:\..*)?$/.test(base) && base !== '.env.example') ||
       /^(instance\.keys|local\.properties|key\.properties|credentials\.json|\.netrc|\.npmrc|\.pypirc|id_rsa.*|id_ed25519.*)$/i.test(base) ||
-      /\.(db(?:-wal|-shm|-journal)?|sqlite3?|keystore|jks|pem|key|p12|pfx|apk|aab|exe|dll|pdb|zip|idsig|iml|log)$/i.test(base) ||
+      /\.(db(?:-wal|-shm|-journal)?|sqlite3?|keystore|jks|pem|key|p12|pfx|apk|aab|exe|dll|pdb|zip|idsig|iml|log|csv|pyc)$/i.test(base) ||
       /\.tar(?:\.gz)?$/i.test(base) || /(^|\/)\.bytelocker-(?:snapshot|backup)-/.test(file)) {
     findings.push('private-or-generated-file');
   }

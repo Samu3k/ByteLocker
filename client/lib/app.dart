@@ -6,6 +6,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
+
+import 'updates/update_controller.dart';
+import 'updates/update_banner.dart';
+
 import 'settings/client_settings.dart';
 
 import 'account/account_page.dart';
@@ -35,11 +40,13 @@ class ByteLockerApp extends StatefulWidget {
 
 class _ByteLockerAppState extends State<ByteLockerApp> {
   late final _settings = widget.settings ?? ClientSettings();
+  final _updates = UpdateController();
   @override
   void initState() {
     super.initState();
     _settings.addListener(_changed);
     unawaited(_settings.load());
+    if (kReleaseMode) unawaited(_updates.check());
   }
 
   void _changed() {
@@ -50,55 +57,67 @@ class _ByteLockerAppState extends State<ByteLockerApp> {
   void dispose() {
     _settings.removeListener(_changed);
     if (widget.settings == null) _settings.dispose();
+    _updates.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SettingsScope(
-      settings: _settings,
-      child: MaterialApp(
-        title: 'ByteLocker',
-        debugShowCheckedModeBanner: false,
-        themeMode: _settings.mode,
-        locale: _settings.locale,
-        supportedLocales: AppStrings.supportedLocales,
-        localizationsDelegates: const [
-          AppStrings.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        theme: ThemeData(
-          useMaterial3: true,
-          brightness: Brightness.light,
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xff78e2c8)),
-          inputDecorationTheme: InputDecorationTheme(
-            filled: true,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
-            contentPadding: const EdgeInsets.all(18),
+    return UpdateScope(
+      updates: _updates,
+      child: SettingsScope(
+        settings: _settings,
+        child: MaterialApp(
+          title: 'ByteLocker',
+          debugShowCheckedModeBanner: false,
+          builder: (context, child) =>
+              UpdateOverlay(child: child ?? const SizedBox()),
+          themeMode: _settings.mode,
+          locale: _settings.locale,
+          supportedLocales: AppStrings.supportedLocales,
+          localizationsDelegates: const [
+            AppStrings.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          theme: ThemeData(
+            useMaterial3: true,
+            brightness: Brightness.light,
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color(0xff78e2c8),
+            ),
+            inputDecorationTheme: InputDecorationTheme(
+              filled: true,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(14),
+              ),
+              contentPadding: const EdgeInsets.all(18),
+            ),
           ),
-        ),
-        darkTheme: ThemeData(
-          useMaterial3: true,
-          brightness: Brightness.dark,
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color(0xff78e2c8),
+          darkTheme: ThemeData(
+            useMaterial3: true,
             brightness: Brightness.dark,
-            surface: const Color(0xff172323),
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color(0xff78e2c8),
+              brightness: Brightness.dark,
+              surface: const Color(0xff172323),
+            ),
+            scaffoldBackgroundColor: const Color(0xff0c1516),
+            inputDecorationTheme: InputDecorationTheme(
+              filled: true,
+              fillColor: const Color(0xff101b1d),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(14),
+              ),
+              contentPadding: const EdgeInsets.all(18),
+            ),
           ),
-          scaffoldBackgroundColor: const Color(0xff0c1516),
-          inputDecorationTheme: InputDecorationTheme(
-            filled: true,
-            fillColor: const Color(0xff101b1d),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
-            contentPadding: const EdgeInsets.all(18),
+          home: ConnectionGate(
+            discovery: widget.discovery ?? DiscoveryClient(),
+            store: widget.linkedStore,
+            allowLocalHttp: widget.allowLocalHttp,
           ),
-        ),
-        home: ConnectionGate(
-          discovery: widget.discovery ?? DiscoveryClient(),
-          store: widget.linkedStore,
-          allowLocalHttp: widget.allowLocalHttp,
         ),
       ),
     );

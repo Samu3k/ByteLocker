@@ -4,13 +4,13 @@
   <p><strong>Your passwords. Your server.</strong></p>
   <p>An encrypted vault for Android and Windows, hosted on your own CasaOS / Docker server.</p>
   <p>
-    <a href="https://github.com/Samu3k/ByteLocker/releases/tag/v0.3.2"><strong>Download</strong></a> ·
+    <a href="https://github.com/Samu3k/ByteLocker/releases/tag/v0.4.0"><strong>Download</strong></a> ·
     <a href="docs/getting-started.md">Getting started</a> ·
     <a href="docs/self-hosting.md">Self-hosting</a> ·
     <a href="docs/it/README.md">Italiano</a>
   </p>
   <p><a href="https://github.com/Samu3k/ByteLocker/actions/workflows/checks.yml"><img src="https://github.com/Samu3k/ByteLocker/actions/workflows/checks.yml/badge.svg" alt="Source checks" /></a></p>
-  <p><sub>Clients 0.3.2 · Server 0.2.3 · Public beta</sub></p>
+  <p><sub>Clients 0.4.0 · Server 0.2.3 · Public beta</sub></p>
 </div>
 
 ![ByteLocker on Windows, showing sample data](docs/images/032-en-vault-desktop.png)
@@ -18,6 +18,8 @@
 ## A vault that feels at home
 
 - **Choose your language** — Italian, English or your device language, saved in Settings.
+- **Move your passwords** — import Bitwarden CSV and export CSV while your vault is unlocked.
+- **Stay up to date** — signed updates, with installation and restart on Windows.
 - **Stay organized** — categories, favorites, tags and over 3,300 bundled brand icons.
 - **Copy in a tap** — usernames, emails, passwords and live 2FA codes.
 - **Unlock your way** — Master Password, optional Android biometrics and Android passkey provider support.
@@ -37,9 +39,9 @@
 
 | Platform | Download | Start here |
 | --- | --- | --- |
-| Android ARM64 | [APK](https://github.com/Samu3k/ByteLocker/releases/download/v0.3.2/ByteLocker-0.3.2-android-arm64.apk) | Install over the previous version. |
-| Windows x64 | [ZIP](https://github.com/Samu3k/ByteLocker/releases/download/v0.3.2/ByteLocker-Windows-0.3.2.zip) | Extract the whole folder and run ByteLocker.exe. |
-| CasaOS / Linux x86_64 | [Server package](https://github.com/Samu3k/ByteLocker/releases/download/v0.3.2/bytelocker-casaos-0.2.3.zip) | Follow the [server guide](docs/self-hosting.md). |
+| Android ARM64 | [APK](https://github.com/Samu3k/ByteLocker/releases/download/v0.4.0/ByteLocker-0.4.0-android-arm64.apk) | Install over the previous version. |
+| Windows x64 | [ZIP](https://github.com/Samu3k/ByteLocker/releases/download/v0.4.0/ByteLocker-Windows-0.4.0.zip) | Extract the whole folder and run ByteLocker.exe. |
+| CasaOS / Linux x86_64 | [Server package](https://github.com/Samu3k/ByteLocker/releases/download/v0.4.0/bytelocker-casaos-0.2.3.zip) | Follow the [server guide](docs/self-hosting.md). |
 
 **Invited by a friend?** Install a client, enter the HTTPS server address and use your personal invitation. [Quick start →](docs/getting-started.md)
 
@@ -53,6 +55,6 @@ Vault contents are encrypted on the client with Argon2id and AES-256-GCM. Your M
 
 ## Explore
 
-[User guide](docs/getting-started.md) · [Self-hosting](docs/self-hosting.md) · [CasaOS commands (Italiano)](docs/it/casaos-commands.md) · [Client builds](client/README.md) · [Contributing](.github/CONTRIBUTING.md) · [Security](.github/SECURITY.md) · [All documentation](docs/README.md)
+[User guide](docs/getting-started.md) · [Self-hosting](docs/self-hosting.md) · [CasaOS commands (Italiano)](docs/it/casaos-commands.md) · [Client builds](client/README.md) · [Contributing](.github/CONTRIBUTING.md) · [Security](.github/SECURITY.md) · [Import & updates](docs/update-0.4.0.md) · [All documentation](docs/README.md)
 
 <sub>Screenshots use sample data. Brand logos belong to their respective owners. ByteLocker code is licensed under <a href="LICENSE">GPL-3.0-only</a>, copyright © 2026 Samu3k. Third-party assets and dependencies retain their own licenses and notices in client/third_party and maintenance/third_party.</sub>

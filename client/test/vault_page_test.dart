@@ -50,6 +50,7 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
+      expect(tester.getTopLeft(find.text('File')).dx,lessThan(50));
       await tester.ensureVisible(find.text('Read-only account'));
       await tester.tap(find.text('Read-only account'));
       await tester.pumpAndSettle();

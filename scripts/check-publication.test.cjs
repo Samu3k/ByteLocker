@@ -3,7 +3,7 @@ const assert=require('node:assert/strict');
 const {inspect}=require('./check-publication.cjs');
 const check=(file,body='')=>inspect(file,Buffer.from(body));
 test('private files are refused even if someone force-adds them',()=>{
- for(const file of ['.env','backend/data/passwordmanager.db','data/instance.keys','secrets/gmail-app-password','client/android/local.properties','client/windows/flutter/ephemeral/generated_config.cmake','app.apk','app.exe','signing.jks','backup.tar.gz']) assert(check(file).length>0,file);
+ for(const file of ['.env','backend/data/passwordmanager.db','data/instance.keys','secrets/gmail-app-password','client/android/local.properties','client/windows/flutter/ephemeral/generated_config.cmake','app.apk','app.exe','signing.jks','backup.tar.gz','password-export.csv','scripts/__pycache__/tool.pyc']) assert(check(file).length>0,file);
  assert.deepEqual(check('.env.example','PM_SMTP_USERNAME=\n'),[]);
  assert(check('.env.example','PM_SMTP_USERNAME=operator@unit-test.invalid').includes('configured-mail-in-example'));
 });

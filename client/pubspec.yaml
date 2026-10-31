@@ -1,7 +1,7 @@
 name: password_manager
 description: ByteLocker, a private self-hosted password manager for Android and Windows.
 publish_to: none
-version: 0.3.2+8
+version: 0.4.0+9
 environment:
   sdk: '>=3.13.0 <4.0.0'
   flutter: '>=3.47.0'
@@ -23,4 +23,5 @@ flutter:
     - third_party/simple-icons/
     - third_party/dashboard-icons/
     - third_party/bytelocker/
+    - third_party/go/
 

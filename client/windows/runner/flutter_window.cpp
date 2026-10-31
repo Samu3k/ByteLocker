@@ -4,6 +4,7 @@
 #include <flutter/standard_method_codec.h>
 #include "linked_account_store.h"
 #include "sensitive_clipboard.h"
+#include "client_files.h"
 
 #include "flutter/generated_plugin_registrant.h"
 
@@ -32,6 +33,9 @@ bool FlutterWindow::OnCreate() {
       flutter_controller_->engine()->messenger(), "bytelocker/security",
       &flutter::StandardMethodCodec::GetInstance());
   security_channel_->SetMethodCallHandler(HandleLinkedAccount);
+  files_channel_=std::make_unique<flutter::MethodChannel<flutter::EncodableValue>>(
+      flutter_controller_->engine()->messenger(),"bytelocker/files",&flutter::StandardMethodCodec::GetInstance());
+  files_channel_->SetMethodCallHandler(HandleClientFiles);
   clipboard_channel_ = std::make_unique<flutter::MethodChannel<flutter::EncodableValue>>(
       flutter_controller_->engine()->messenger(), "bytelocker/clipboard",
       &flutter::StandardMethodCodec::GetInstance());
@@ -56,6 +60,7 @@ void FlutterWindow::OnDestroy() {
   ClearSensitiveClipboard();
   clipboard_channel_.reset();
   security_channel_.reset();
+  files_channel_.reset();
   if (flutter_controller_) {
     flutter_controller_ = nullptr;
   }

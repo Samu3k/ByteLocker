@@ -13,6 +13,7 @@ import '../connection/server_config.dart';
 import '../vault/vault_client.dart';
 import '../vault/vault_page.dart';
 import '../settings/client_settings.dart';
+import '../updates/update_controller.dart';
 import '../crypto/pm1.dart';
 import 'linked_account.dart';
 
@@ -51,6 +52,22 @@ class _AccountPageState extends State<AccountPage> with WidgetsBindingObserver {
   String? _message;
   PendingAccount? _pending;
   UnlockedAccount? _account;
+  UpdateController? _updates;
+  late final Future<bool> Function() _prepareUpdate = _prepareForUpdate;
+  Future<bool> _prepareForUpdate() async {
+    if (!mounted ||
+        _busy ||
+        _pending != null ||
+        _nativePrompt ||
+        _vault?.busy == true ||
+        _vault?.hasPendingWrite == true ||
+        _updates?.vaultCanRestart?.call() == false)
+      return false;
+    _lockAfterBackground();
+    for (final field in [_password, _confirm, _invite, _code]) field.clear();
+    return true;
+  }
+
   VaultClient? _vault;
   bool _biometricEnabled = false, _nativePrompt = false, _showSettings = false;
   LinkedAccount? _linked;
@@ -74,6 +91,13 @@ class _AccountPageState extends State<AccountPage> with WidgetsBindingObserver {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    final updates = UpdateScope.maybeOf(context);
+    if (_updates != updates) {
+      if (_updates?.prepareInstall == _prepareUpdate)
+        _updates?.prepareInstall = null;
+      _updates = updates;
+      _updates?.prepareInstall = _prepareUpdate;
+    }
     if (_linked != null) unawaited(_checkBiometrics());
   }
 
@@ -134,6 +158,8 @@ class _AccountPageState extends State<AccountPage> with WidgetsBindingObserver {
 
   @override
   void dispose() {
+    if (_updates?.prepareInstall == _prepareUpdate)
+      _updates?.prepareInstall = null;
     _cancelLockTimer();
     _vault?.dispose();
     WidgetsBinding.instance.removeObserver(this);

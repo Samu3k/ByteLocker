@@ -61,6 +61,7 @@ final class VaultClient {
   List<VaultEntry> get categories =>
       _disposed || account.locked ? const [] : _categories;
   bool get ready => _ready && !_disposed && !account.locked;
+  bool get active => !_disposed && !account.locked;
   bool get hasPendingWrite => _pending != null;
   bool get busy => _busy;
 
@@ -216,39 +217,48 @@ final class VaultClient {
     _ready = _pending == null;
   }
 
-  Future<void> save(VaultRecord record, {VaultEntry? replacing}) => _exclusive(
-    () async {
-      if (!ready || _pending != null)
-        throw StateError('Reload or resolve the pending write first');
-      if (replacing != null &&
-          !_entries.any(
-            (entry) =>
-                entry.id.matches(replacing.id) &&
-                entry.revision == replacing.revision,
-          ))
-        throw const CryptoFailure();
-      if (replacing != null && replacing.record.isCategory != record.isCategory)
-        throw const RecordFailure();
-      if (record.categoryId != null &&
-          !_categories.any((entry) => entry.id.wire == record.categoryId))
-        throw const RecordFailure();
-      if (record.isCategory &&
-          _categories.any(
-            (entry) =>
-                entry.id.wire != replacing?.id.wire &&
-                entry.record.title.trim().toLowerCase() ==
-                    record.title.trim().toLowerCase(),
-          ))
-        throw const RecordFailure();
-      final plaintext = record.encode();
-      try {
-        await _prepare(plaintext, replacing);
-      } finally {
-        plaintext.fillRange(0, plaintext.length, 0);
-      }
-      await _send();
-    },
-  );
+  Future<void> save(VaultRecord record, {VaultEntry? replacing}) =>
+      _save(record, replacing: replacing);
+
+  /// Import acknowledgements are authenticated individually. The caller reloads
+  /// the complete snapshot at the end, avoiding a full download after each row.
+  Future<void> saveImported(VaultRecord record) =>
+      _save(record, importing: true);
+  Future<void> _save(
+    VaultRecord record, {
+    VaultEntry? replacing,
+    bool importing = false,
+  }) => _exclusive(() async {
+    if (!ready || _pending != null)
+      throw StateError('Reload or resolve the pending write first');
+    if (replacing != null &&
+        !_entries.any(
+          (entry) =>
+              entry.id.matches(replacing.id) &&
+              entry.revision == replacing.revision,
+        ))
+      throw const CryptoFailure();
+    if (replacing != null && replacing.record.isCategory != record.isCategory)
+      throw const RecordFailure();
+    if (record.categoryId != null &&
+        !_categories.any((entry) => entry.id.wire == record.categoryId))
+      throw const RecordFailure();
+    if (record.isCategory &&
+        _categories.any(
+          (entry) =>
+              entry.id.wire != replacing?.id.wire &&
+              entry.record.title.trim().toLowerCase() ==
+                  record.title.trim().toLowerCase(),
+        ))
+      throw const RecordFailure();
+    final plaintext = record.encode();
+    try {
+      await _prepare(plaintext, replacing);
+    } finally {
+      plaintext.fillRange(0, plaintext.length, 0);
+    }
+    await _send(imported: importing ? record : null);
+  });
 
   Future<void> remove(VaultEntry entry) => _exclusive(() async {
     if (!ready || _pending != null || !_entries.contains(entry))
@@ -307,7 +317,7 @@ final class VaultClient {
     await _send();
   });
 
-  Future<void> _send() async {
+  Future<void> _send({VaultRecord? imported}) async {
     final pending = _pending!;
     try {
       final result = await _request(
@@ -326,6 +336,24 @@ final class VaultClient {
       if (sequence != collection || sequence < pending.revision)
         throw const CryptoFailure();
       _pending = null;
+      if (imported != null) {
+        _active();
+        final entry = VaultEntry(
+          pending.object,
+          pending.revision,
+          sequence,
+          imported,
+        );
+        _entries = List.unmodifiable([..._entries, entry]);
+        _credentials = List.unmodifiable(
+          _entries.where((e) => !e.record.isCategory),
+        );
+        _categories = List.unmodifiable(
+          _entries.where((e) => e.record.isCategory),
+        );
+        _ready = true;
+        return;
+      }
     } on AccountFailure catch (error) {
       if (const [
         400,

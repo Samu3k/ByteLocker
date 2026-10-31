@@ -67,3 +67,6 @@ service-account*.json
 id_rsa*
 id_ed25519*
 linked-account.json
+__pycache__/
+*.py[cod]
+*.csv

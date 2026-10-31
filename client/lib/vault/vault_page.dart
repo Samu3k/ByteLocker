@@ -14,6 +14,8 @@ import 'totp_code.dart';
 import '../settings/client_settings.dart';
 import 'passkey_panel.dart';
 import 'sensitive_clipboard.dart';
+import '../transfer/transfer_dialog.dart';
+import '../updates/update_controller.dart';
 
 class VaultPage extends StatefulWidget {
   const VaultPage({
@@ -63,6 +65,48 @@ class _VaultPageState extends State<VaultPage> {
   PasskeyRequest? _passkeyRequest;
   bool _passkeyError = false;
   bool _confirmRemovePasskey = false, _removePasskey = false;
+  bool _transferOpen = false;
+  UpdateController? _updates;
+  late final bool Function() _restartGuard = () =>
+      mounted &&
+      !_busy &&
+      !_editor &&
+      !_transferOpen &&
+      _dialog == null &&
+      _passkeyRequest == null &&
+      widget.vault.ready &&
+      !widget.vault.hasPendingWrite;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final updates = UpdateScope.maybeOf(context);
+    if (_updates != updates) {
+      if (_updates?.vaultCanRestart == _restartGuard)
+        _updates?.vaultCanRestart = null;
+      _updates = updates;
+      _updates?.vaultCanRestart = _restartGuard;
+    }
+  }
+
+  Future<void> _transfer(bool exporting) async {
+    if (_busy ||
+        _editor ||
+        _transferOpen ||
+        _passkeyRequest != null ||
+        !widget.vault.ready ||
+        widget.vault.hasPendingWrite ||
+        widget.vault.account.locked)
+      return;
+    setState(() => _transferOpen = true);
+    await _prompt(
+      TransferDialog(
+        vault: widget.vault,
+        exporting: exporting,
+        onSessionExpired: () => unawaited(widget.onLogout()),
+      ),
+    );
+    if (mounted) setState(() => _transferOpen = false);
+  }
 
   @override
   void initState() {
@@ -95,6 +139,8 @@ class _VaultPageState extends State<VaultPage> {
 
   @override
   void dispose() {
+    if (_updates?.vaultCanRestart == _restartGuard)
+      _updates?.vaultCanRestart = null;
     unawaited(SensitiveClipboard.clear());
     widget.vault.onDispose = null;
     _editing = null;
@@ -1084,98 +1130,147 @@ class _VaultPageState extends State<VaultPage> {
           ],
         ),
         body: SafeArea(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          child: Column(
+            crossAxisAlignment:CrossAxisAlignment.stretch,
             children: [
-              if (wide) ...[
-                SizedBox(width: 270, child: _navigation()),
-                const VerticalDivider(width: 1),
-              ],
+              MenuBar(
+                children: [
+                  SubmenuButton(
+                    menuChildren: [
+                      MenuItemButton(
+                        onPressed:
+                            _busy ||
+                                _editor ||
+                                _transferOpen ||
+                                _passkeyRequest != null ||
+                                !widget.vault.ready ||
+                                widget.vault.hasPendingWrite
+                            ? null
+                            : () => _transfer(false),
+                        leadingIcon: const Icon(Icons.file_open_outlined),
+                        child: Text(tr(context, 'Importa da Bitwarden')),
+                      ),
+                      MenuItemButton(
+                        onPressed:
+                            _busy ||
+                                _editor ||
+                                _transferOpen ||
+                                _passkeyRequest != null ||
+                                !widget.vault.ready ||
+                                widget.vault.hasPendingWrite
+                            ? null
+                            : () => _transfer(true),
+                        leadingIcon: const Icon(Icons.file_download_outlined),
+                        child: Text(tr(context, 'Esporta CSV')),
+                      ),
+                    ],
+                    child: const Text('File'),
+                  ),
+                ],
+              ),
               Expanded(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(24),
-                  child: Center(
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 760),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          if (_busy) const LinearProgressIndicator(),
-                          if (_message != null)
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              child: Semantics(
-                                liveRegion: true,
-                                child: Text(_message!),
-                              ),
-                            ),
-                          if (_passkeyError)
-                            TextButton(
-                              onPressed: () => unawaited(
-                                _run(() async {
-                                  await NativePasskeyClient().cancel();
-                                  if (mounted)
-                                    setState(() => _passkeyError = false);
-                                }),
-                              ),
-                              child: Text(
-                                tr(context, 'Annulla richiesta passkey'),
-                              ),
-                            ),
-                          if (widget.vault.hasPendingWrite &&
-                              _passkeyRequest == null) ...[
-                            Text(
-                              tr(
-                                context,
-                                'Una scrittura cifrata è in attesa di conferma. Non chiudere l’app se vuoi conservarne il tentativo.',
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: _busy
-                                  ? null
-                                  : () => unawaited(
-                                      _run(
-                                        widget.vault.retryPending,
-                                        closeEditor: true,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    if (wide) ...[
+                      SizedBox(width: 270, child: _navigation()),
+                      const VerticalDivider(width: 1),
+                    ],
+                    Expanded(
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.all(24),
+                        child: Center(
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(maxWidth: 760),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                if (_busy) const LinearProgressIndicator(),
+                                if (_message != null)
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 16,
+                                    ),
+                                    child: Semantics(
+                                      liveRegion: true,
+                                      child: Text(_message!),
+                                    ),
+                                  ),
+                                if (_passkeyError)
+                                  TextButton(
+                                    onPressed: () => unawaited(
+                                      _run(() async {
+                                        await NativePasskeyClient().cancel();
+                                        if (mounted)
+                                          setState(() => _passkeyError = false);
+                                      }),
+                                    ),
+                                    child: Text(
+                                      tr(context, 'Annulla richiesta passkey'),
+                                    ),
+                                  ),
+                                if (widget.vault.hasPendingWrite &&
+                                    _passkeyRequest == null) ...[
+                                  Text(
+                                    tr(
+                                      context,
+                                      'Una scrittura cifrata è in attesa di conferma. Non chiudere l’app se vuoi conservarne il tentativo.',
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: _busy
+                                        ? null
+                                        : () => unawaited(
+                                            _run(
+                                              widget.vault.retryPending,
+                                              closeEditor: true,
+                                            ),
+                                          ),
+                                    child: Text(
+                                      tr(
+                                        context,
+                                        'Ripeti operazione in attesa',
                                       ),
                                     ),
-                              child: Text(
-                                tr(context, 'Ripeti operazione in attesa'),
-                              ),
+                                  ),
+                                ],
+                                const SizedBox(height: 12),
+                                _passkeyRequest != null
+                                    ? PasskeyPanel(
+                                        request: _passkeyRequest!,
+                                        vault: widget.vault,
+                                        onComplete: () => setState(
+                                          () => _passkeyRequest = null,
+                                        ),
+                                      )
+                                    : _settings
+                                    ? ClientSettingsPanel(
+                                        onClose: () =>
+                                            setState(() => _settings = false),
+                                        onBiometrics: widget.onBiometrics,
+                                        biometricEnabled:
+                                            widget.biometricEnabled,
+                                      )
+                                    : _editor
+                                    ? _editorView()
+                                    : _viewing != null
+                                    ? _detailView(_viewing!)
+                                    : _listView(),
+                                const SizedBox(height: 24),
+                                Text(
+                                  tr(
+                                    context,
+                                    'I contenuti sono cifrati sul dispositivo prima dell’invio.',
+                                  ),
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              ],
                             ),
-                          ],
-                          const SizedBox(height: 12),
-                          _passkeyRequest != null
-                              ? PasskeyPanel(
-                                  request: _passkeyRequest!,
-                                  vault: widget.vault,
-                                  onComplete: () =>
-                                      setState(() => _passkeyRequest = null),
-                                )
-                              : _settings
-                              ? ClientSettingsPanel(
-                                  onClose: () =>
-                                      setState(() => _settings = false),
-                                  onBiometrics: widget.onBiometrics,
-                                  biometricEnabled: widget.biometricEnabled,
-                                )
-                              : _editor
-                              ? _editorView()
-                              : _viewing != null
-                              ? _detailView(_viewing!)
-                              : _listView(),
-                          const SizedBox(height: 24),
-                          Text(
-                            tr(
-                              context,
-                              'I contenuti sono cifrati sul dispositivo prima dell’invio.',
-                            ),
-                            style: TextStyle(fontSize: 12),
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ],

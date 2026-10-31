@@ -42,6 +42,43 @@ class _StringsDelegate extends LocalizationsDelegate<AppStrings> {
 }
 
 const _english = <String, String>{
+  'Consenti gli aggiornamenti da ByteLocker nelle impostazioni Android, poi torna qui e riprova.': 'Allow updates from ByteLocker in Android settings, then return here and try again.',
+  'Aggiorna e riavvia': 'Update and restart',
+  'Aggiornamento disponibile': 'Update available',
+  'Aggiornamento non completato. L’installazione attuale e il profilo sono conservati. Puoi usare il pacchetto su GitHub.': 'Update incomplete. Your current installation and profile are preserved. You can use the package on GitHub.',
+  'Chiudi': 'Close',
+  'Conferma esportazione': 'Confirm export',
+  'Conferma importazione': 'Confirm import',
+  'Conferma l’aggiornamento nella schermata Android. Poi riapri ByteLocker.':
+      'Confirm the update on the Android screen. Then reopen ByteLocker.',
+  'Controllo aggiornamenti non riuscito. Riprova più tardi.':
+      'Could not check for updates. Try again later.',
+  'Da importare': 'Ready to import',
+  'Duplicati': 'Duplicates',
+  'Esporta CSV': 'Export CSV',
+  'Esportazione non completata. Controlla la destinazione e riprova.':
+      'Export incomplete. Check the destination and try again.',
+  'File CSV non valido o troppo grande. Usa un export Bitwarden CSV UTF-8 (massimo 10 MB / 5000 voci).': 'Invalid or oversized CSV. Use a Bitwarden UTF-8 CSV export (up to 10 MB / 5000 entries).',
+  'I campi personalizzati vengono conservati nelle note.':
+      'Custom fields are preserved in notes.',
+  'Il CSV contiene password e segreti 2FA in chiaro. Salvalo in un luogo privato. Non include passkey o allegati e non sostituisce il backup del server.': 'The CSV contains plaintext passwords and 2FA secrets. Keep it private. It excludes passkeys and attachments and does not replace a server backup.',
+  'Il blocco aggiuntivo per singola voce di Bitwarden non è supportato.':
+      'Bitwarden’s additional per-entry password prompt is not supported.',
+  'Il file viene letto sul dispositivo. Le nuove voci saranno cifrate prima di inviarle al tuo server. I duplicati esatti vengono saltati; nessuna voce esistente viene sostituita.': 'The file is read on your device. New entries are encrypted before being sent to your server. Exact duplicates are skipped; existing entries are never replaced.',
+  'Importa da Bitwarden': 'Import from Bitwarden',
+  'Importazione interrotta. Le voci già confermate restano salvate. Chiudi, risolvi eventuali scritture in attesa e rileggi il CSV per saltare i duplicati.': 'Import interrupted. Confirmed entries remain saved. Close this dialog, resolve any pending write and reread the CSV to skip duplicates.',
+  'Installa aggiornamento': 'Install update',
+  'Non supportate': 'Unsupported',
+  'Non valide': 'Invalid',
+  'Operazione completata.': 'Operation completed.',
+  'Più tardi': 'Later',
+  'Salva o annulla le modifiche e completa le operazioni in attesa prima di aggiornare.': 'Save or discard your edits and complete pending operations before updating.',
+  'Scegli CSV': 'Choose CSV',
+  'Stai usando l’ultima versione disponibile.':
+      'You are using the latest available version.',
+  'Voci salvate': 'Entries saved',
+  'Controlla aggiornamenti': 'Check for updates',
+
   'Abilita ByteLocker come gestore nelle impostazioni Android. Le passkey vengono create dal sito o dall’app e salvate nel vault.': 'Enable ByteLocker as a provider in Android settings. Passkeys are created by the website or app and saved in your vault.',
   'Accedi al vault per attivarlo su questo dispositivo.':
       'Unlock your vault to enable this on this device.',

@@ -1,4 +1,5 @@
 import '../l10n/app_strings.dart';
+import '../updates/update_controller.dart';
 
 import 'package:flutter/material.dart';
 
@@ -266,6 +267,16 @@ class _ClientSettingsPanelState extends State<ClientSettingsPanel> {
           TextButton(
             onPressed: _busy ? null : widget.onClose,
             child: Text(tr(context, 'Torna indietro')),
+          ),
+          const SizedBox(height: 12),
+          OutlinedButton.icon(
+            onPressed:
+                UpdateScope.maybeOf(context)?.checking == true ||
+                    UpdateScope.maybeOf(context)?.installing == true
+                ? null
+                : () => UpdateScope.maybeOf(context)?.check(manual: true),
+            icon: const Icon(Icons.system_update_alt),
+            label: Text(tr(context, 'Controlla aggiornamenti')),
           ),
         ],
       ),
