@@ -12,7 +12,15 @@ class UpdateOverlay extends StatelessWidget {
     final available = updates?.available;
     return Stack(
       children: [
-        child,
+        ExcludeFocus(
+          excluding: updates?.installing == true,
+          child: AbsorbPointer(
+            absorbing: updates?.installing == true,
+            child: child,
+          ),
+        ),
+        if (updates?.installing == true)
+          const ModalBarrier(dismissible: false, color: Colors.black38),
         if (updates != null && (available != null || updates.message != null))
           Positioned(
             top: 12,

@@ -9,6 +9,52 @@ import 'package:password_manager/updates/update_controller.dart';
 import 'package:password_manager/updates/update_banner.dart';
 
 void main() {
+  testWidgets('installation blocks new edits without clearing existing text', (
+    tester,
+  ) async {
+    final updates = UpdateController();
+    final text = TextEditingController(text: 'synthetic unsaved text');
+    final focus = FocusNode();
+    var taps = 0;
+    addTearDown(updates.dispose);
+    addTearDown(text.dispose);
+    addTearDown(focus.dispose);
+    Widget page() => UpdateScope(
+      updates: updates,
+      child: MaterialApp(
+        home: UpdateOverlay(
+          child: Scaffold(
+            body: Column(
+              children: [
+                TextField(controller: text, focusNode: focus),
+                FilledButton(
+                  key: const ValueKey('underlying-action'),
+                  onPressed: () => taps++,
+                  child: const Text('Action'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpWidget(page());
+    focus.requestFocus();
+    await tester.pump();
+    expect(focus.hasFocus, isTrue);
+    updates.installing = true;
+    await tester.pumpWidget(page());
+    await tester.pump();
+    expect(focus.hasFocus, isFalse);
+    expect(text.text, 'synthetic unsaved text');
+    await tester.tap(
+      find.byKey(const ValueKey('underlying-action')),
+      warnIfMissed: false,
+    );
+    await tester.pump();
+    expect(taps, 0);
+    await tester.pumpWidget(const SizedBox());
+  });
   Future<(Uint8List, String)> fixture({
     String? url,
     String expires = '2026-11-05T00:00:00Z',

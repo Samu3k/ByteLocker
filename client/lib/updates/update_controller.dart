@@ -113,6 +113,12 @@ class UpdateController extends ChangeNotifier {
   Future<void> install() async {
     final manifest = available;
     if (manifest == null || installing || !supported) return;
+    if (vaultCanRestart?.call() == false) {
+      message = 'Salva o annulla le modifiche e completa le operazioni in attesa prima di aggiornare.';
+      _changed();
+      return;
+    }
+    FocusManager.instance.primaryFocus?.unfocus();
     installing = true;
     message = null;
     _changed();
